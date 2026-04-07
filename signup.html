@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - MetricFlow</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- REBRANDLY CONVERSION TRACKING -->
+  <script src="https://cdn.test.rebrandly.com/sdk/v1/rbly.min.js" data-api-key="433200b2fd6141da82f1bd3d49b8dce8"></script>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="container">
+      <a href="index.html" class="nav-logo">
+        <svg viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="#4f46e5"/><path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        MetricFlow
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="use-cases.html">Use Cases</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Signup Form -->
+  <section class="form-page">
+    <div class="container">
+      <div class="form-wrapper">
+        <h1>Start your free trial</h1>
+        <p>No credit card required. Get conversion data in under 30 minutes.</p>
+
+        <form id="signup-form" action="thank-you.html" method="GET">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="first-name">First name</label>
+              <input type="text" id="first-name" name="first_name" placeholder="Jane" required>
+            </div>
+            <div class="form-group">
+              <label for="last-name">Last name</label>
+              <input type="text" id="last-name" name="last_name" placeholder="Smith" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Work email</label>
+            <input type="email" id="email" name="email" placeholder="jane@company.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="company">Company name</label>
+            <input type="text" id="company" name="company" placeholder="Acme Corp">
+          </div>
+
+          <div class="form-group">
+            <label for="plan">Plan</label>
+            <select id="plan" name="plan">
+              <option value="starter">Starter (Free)</option>
+              <option value="professional" selected>Professional ($79/mo)</option>
+              <option value="enterprise">Enterprise (Contact Sales)</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-large">Create Account</button>
+        </form>
+
+        <div class="form-footer">
+          Already have an account? <a href="#">Sign in</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
