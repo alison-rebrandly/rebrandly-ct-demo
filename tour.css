@@ -42,30 +42,18 @@
   font-weight: 800;
 }
 
-/* Backdrop */
-.tour-backdrop {
+/* No backdrop — tour overlays directly on the page */
+
+/* Centered tooltip (for steps with no target element) */
+.tour-tooltip.tour-tooltip-center {
   position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.5);
-  z-index: 9998;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.tour-backdrop.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* Spotlight cutout on the target element */
-.tour-spotlight {
-  position: absolute;
-  border-radius: 8px;
-  box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.55);
-  z-index: 9999;
-  pointer-events: none;
-  transition: all 0.4s ease;
+.tour-tooltip.tour-tooltip-center.visible {
+  transform: translate(-50%, -50%);
 }
 
 /* Tooltip */
