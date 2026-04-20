@@ -42,7 +42,32 @@
   font-weight: 800;
 }
 
-/* No backdrop — tour overlays directly on the page */
+/* Backdrop — only visible once tour is started, never on page load */
+.tour-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.tour-backdrop.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Spotlight cutout on the target element */
+.tour-spotlight {
+  position: absolute;
+  border-radius: 8px;
+  box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.55);
+  z-index: 9999;
+  pointer-events: none;
+  transition: all 0.4s ease;
+  display: none;
+}
 
 /* Centered tooltip (for steps with no target element) */
 .tour-tooltip.tour-tooltip-center {

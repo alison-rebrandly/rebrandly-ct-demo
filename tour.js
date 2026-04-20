@@ -129,7 +129,7 @@
 
   var currentStepIndex = 0;
   var pageSteps = [];
-  var tooltip, bar, launchBtn;
+  var backdrop, spotlight, tooltip, bar, launchBtn;
   var isActive = false;
 
   function getPageKey() {
@@ -154,6 +154,17 @@
   }
 
   function createElements() {
+    // Backdrop (hidden until tour starts)
+    backdrop = document.createElement("div");
+    backdrop.className = "tour-backdrop";
+    backdrop.addEventListener("click", endTour);
+    document.body.appendChild(backdrop);
+
+    // Spotlight
+    spotlight = document.createElement("div");
+    spotlight.className = "tour-spotlight";
+    document.body.appendChild(spotlight);
+
     // Tooltip
     tooltip = document.createElement("div");
     tooltip.className = "tour-tooltip";
@@ -178,15 +189,18 @@
     isActive = true;
     currentStepIndex = stepIndex || 0;
     launchBtn.classList.add("hidden");
+    backdrop.classList.add("visible");
     bar.classList.add("visible");
     showStep(currentStepIndex);
   }
 
   function endTour() {
     isActive = false;
+    backdrop.classList.remove("visible");
     tooltip.classList.remove("visible");
     tooltip.classList.remove("tour-tooltip-center");
     bar.classList.remove("visible");
+    spotlight.style.display = "none";
     launchBtn.classList.remove("hidden");
 
     // Remove highlight from any element
@@ -211,20 +225,32 @@
       targetEl = document.querySelector(step.target);
     }
 
-    // Position tooltip
+    // Position spotlight and tooltip
     if (targetEl && step.position !== "center") {
       targetEl.classList.add("tour-highlight");
       targetEl.scrollIntoView({ behavior: "smooth", block: "center" });
 
       setTimeout(function () {
         positionTooltip(targetEl, step);
+        positionSpotlight(targetEl);
       }, 350);
     } else {
       // Center tooltip (no target)
+      spotlight.style.display = "none";
       positionCenter(step);
     }
 
     updateBar(index);
+  }
+
+  function positionSpotlight(el) {
+    var rect = el.getBoundingClientRect();
+    var pad = 8;
+    spotlight.style.display = "block";
+    spotlight.style.top = (rect.top + window.scrollY - pad) + "px";
+    spotlight.style.left = (rect.left + window.scrollX - pad) + "px";
+    spotlight.style.width = (rect.width + pad * 2) + "px";
+    spotlight.style.height = (rect.height + pad * 2) + "px";
   }
 
   function positionTooltip(el, step) {
