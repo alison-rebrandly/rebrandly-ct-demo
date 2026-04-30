@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pricing - MetricFlow</title>
+  <title>Ledgerly — Pricing</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="tour.css">
   <!-- REBRANDLY CONVERSION TRACKING -->
@@ -11,45 +11,59 @@
 </head>
 <body>
 
-  <!-- Nav -->
   <nav class="nav">
     <div class="container">
       <a href="index.html" class="nav-logo">
-        <svg viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="#7c3aed"/><path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        MetricFlow
+        <svg viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="#1e3a8a"/><path d="M8 10h12M8 14h12M8 18h8" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+        Ledgerly
       </a>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="features.html">Features</a></li>
+        <li class="has-dropdown">
+          <a href="features.html">Features</a>
+          <ul class="nav-dropdown">
+            <li><a href="features.html">Overview</a></li>
+            <li><a href="feature-invoice-capture.html">Invoice Capture</a></li>
+            <li><a href="feature-approvals.html">Approval Workflows</a></li>
+            <li><a href="feature-payments.html">Payments</a></li>
+            <li><a href="feature-integrations.html">Integrations</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">Industries</a>
+          <ul class="nav-dropdown">
+            <li><a href="industry-construction.html">Construction</a></li>
+            <li><a href="industry-services.html">Professional Services</a></li>
+            <li><a href="industry-healthcare.html">Healthcare</a></li>
+            <li><a href="industry-manufacturing.html">Manufacturing</a></li>
+            <li><a href="industry-nonprofits.html">Nonprofits</a></li>
+          </ul>
+        </li>
         <li><a href="pricing.html" class="active">Pricing</a></li>
-        <li><a href="use-cases.html">Use Cases</a></li>
-        <li><a href="signup.html" class="btn btn-primary">Start Free Trial</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="hero" style="padding: 60px 0;">
+  <section class="hero">
     <div class="container">
-      <h1>Simple, transparent <span>pricing</span></h1>
-      <p>Start free, upgrade when you need more. No hidden fees, no surprise charges.</p>
+      <h1>Simple, transparent pricing</h1>
+      <p>Start free, scale as your AP volume grows. Every plan includes invoice capture, ACH payments, and accounting sync.</p>
     </div>
   </section>
 
-  <!-- Pricing Cards -->
   <section class="section">
     <div class="container">
       <div class="pricing-grid">
 
         <div class="pricing-card">
           <h3>Free</h3>
-          <p style="color: var(--text-light); font-size: 0.9rem;">For individuals trying out attribution for the first time.</p>
+          <p style="color: var(--text-light); font-size: 0.9rem;">For solo founders and tiny teams just getting started.</p>
           <div class="pricing-price">$0 <span>/month</span></div>
           <ul class="pricing-features">
-            <li>Up to 500 tracked clicks/mo</li>
-            <li>Basic conversion funnel</li>
-            <li>7-day attribution window</li>
-            <li>1 workspace</li>
+            <li>1 user</li>
+            <li>10 invoices/month</li>
+            <li>ACH payments only</li>
+            <li>QuickBooks Online sync</li>
             <li>Community support</li>
           </ul>
           <a href="signup.html" class="btn btn-secondary">Get Started Free</a>
@@ -57,13 +71,13 @@
 
         <div class="pricing-card">
           <h3>Starter</h3>
-          <p style="color: var(--text-light); font-size: 0.9rem;">For small teams ready to attribute revenue to channels.</p>
+          <p style="color: var(--text-light); font-size: 0.9rem;">For small teams ready to ditch spreadsheets.</p>
           <div class="pricing-price">$19 <span>/month</span></div>
           <ul class="pricing-features">
-            <li>Up to 5,000 tracked clicks/mo</li>
-            <li>Full conversion funnel</li>
-            <li>14-day attribution window</li>
-            <li>2 workspaces</li>
+            <li>3 users</li>
+            <li>100 invoices/month</li>
+            <li>ACH + check payments</li>
+            <li>Approval workflows</li>
             <li>Email support</li>
           </ul>
           <button type="button" class="btn btn-secondary buy-now" data-plan="starter">Buy Now</button>
@@ -72,13 +86,13 @@
         <div class="pricing-card featured">
           <div class="pricing-badge">Most Popular</div>
           <h3>Professional</h3>
-          <p style="color: var(--text-light); font-size: 0.9rem;">For growing teams that need full attribution and analytics.</p>
+          <p style="color: var(--text-light); font-size: 0.9rem;">For growing finance teams that need controls and rebates.</p>
           <div class="pricing-price">$79 <span>/month</span></div>
           <ul class="pricing-features">
-            <li>Up to 50,000 tracked clicks/mo</li>
-            <li>Full conversion analytics</li>
-            <li>30-day attribution window</li>
-            <li>Revenue attribution</li>
+            <li>10 users</li>
+            <li>Unlimited invoices</li>
+            <li>ACH + check + virtual card (1.5% rebate)</li>
+            <li>NetSuite / Xero / Sage Intacct sync</li>
             <li>Priority support</li>
           </ul>
           <button type="button" class="btn btn-primary buy-now" data-plan="professional">Buy Now</button>
@@ -86,14 +100,14 @@
 
         <div class="pricing-card">
           <h3>Enterprise</h3>
-          <p style="color: var(--text-light); font-size: 0.9rem;">For large organizations with advanced needs and compliance requirements.</p>
+          <p style="color: var(--text-light); font-size: 0.9rem;">For multi-entity orgs with audit, SSO, and compliance needs.</p>
           <div class="pricing-price">$299 <span>/month</span></div>
           <ul class="pricing-features">
-            <li>Unlimited tracked clicks</li>
-            <li>90-day attribution window</li>
-            <li>SSO &amp; advanced permissions</li>
-            <li>Dedicated account manager</li>
-            <li>SLA guarantee</li>
+            <li>Unlimited users</li>
+            <li>Multi-entity consolidation</li>
+            <li>SSO &amp; SCIM provisioning</li>
+            <li>SOC 2 Type II audit log</li>
+            <li>Dedicated CSM &amp; SLA</li>
           </ul>
           <button type="button" class="btn btn-secondary buy-now" data-plan="enterprise">Buy Now</button>
         </div>
@@ -102,38 +116,24 @@
     </div>
   </section>
 
-  <!-- FAQ-style section -->
   <section class="section section-alt">
     <div class="container">
       <div class="section-header">
         <h2>Frequently asked questions</h2>
       </div>
       <div class="feature-grid" style="max-width: 800px; margin: 0 auto;">
-        <div class="feature-card">
-          <h3>What counts as a tracked click?</h3>
-          <p>A tracked click is any click on a link that has conversion tracking enabled. Clicks on links without tracking enabled don't count toward your limit.</p>
-        </div>
-        <div class="feature-card">
-          <h3>Can I change plans anytime?</h3>
-          <p>Yes. Upgrade or downgrade at any time. Changes take effect immediately and billing is prorated.</p>
-        </div>
-        <div class="feature-card">
-          <h3>What's an attribution window?</h3>
-          <p>The time period after a click during which a conversion can be attributed to that click. A 30-day window means conversions up to 30 days after the click are counted.</p>
-        </div>
-        <div class="feature-card">
-          <h3>Do I need a developer to set up?</h3>
-          <p>For basic setup, no. You just paste one code snippet into your website header. Our wizard guides you through every step in about 15 minutes.</p>
-        </div>
+        <div class="feature-card"><h3>What counts as an invoice?</h3><p>Any vendor bill processed through Ledgerly — captured via email, upload, vendor portal, or API.</p></div>
+        <div class="feature-card"><h3>Can I switch plans?</h3><p>Yes, anytime. Upgrades take effect immediately, downgrades at the next billing cycle. Prorated either way.</p></div>
+        <div class="feature-card"><h3>Are there per-transaction fees?</h3><p>ACH and checks are included on every paid plan. Virtual cards earn rebates. International wires charged at cost.</p></div>
+        <div class="feature-card"><h3>Do you offer a free trial?</h3><p>The Free plan is permanent — start there and upgrade when your volume outgrows it.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- Talk to Sales -->
   <section class="cta-banner" id="talk-to-sales">
     <div class="container" style="max-width: 560px;">
       <h2>Need something custom?</h2>
-      <p>Volume pricing, on-prem deployments, and procurement-friendly contracts. Tell us what you need.</p>
+      <p>Multi-entity rollouts, custom approval logic, or procurement-friendly contracts. Tell us what you need.</p>
       <form id="talk-to-sales-form" style="margin-top: 1.5rem; display: grid; gap: 0.75rem; text-align: left;">
         <input type="text" name="name" placeholder="Your name" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
         <input type="email" name="email" placeholder="Work email" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
@@ -144,44 +144,45 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="nav-logo" style="color:#fff;">
-            <svg viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="#7c3aed"/><path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            MetricFlow
+            <svg viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="#1e3a8a"/><path d="M8 10h12M8 14h12M8 18h8" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+            Ledgerly
           </div>
-          <p>Analytics that connect clicks to conversions. Built for marketers who need to prove ROI, not just report traffic.</p>
+          <p>The fastest way to pay vendors and close the books. Built for finance teams that need to move at the speed of their business.</p>
         </div>
         <div>
           <h4>Product</h4>
           <ul>
             <li><a href="features.html">Features</a></li>
             <li><a href="pricing.html">Pricing</a></li>
-            <li><a href="use-cases.html">Use Cases</a></li>
+            <li><a href="feature-integrations.html">Integrations</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Industries</h4>
+          <ul>
+            <li><a href="industry-construction.html">Construction</a></li>
+            <li><a href="industry-services.html">Professional Services</a></li>
+            <li><a href="industry-healthcare.html">Healthcare</a></li>
+            <li><a href="industry-manufacturing.html">Manufacturing</a></li>
+            <li><a href="industry-nonprofits.html">Nonprofits</a></li>
           </ul>
         </div>
         <div>
           <h4>Company</h4>
           <ul>
             <li><a href="#">About</a></li>
-            <li><a href="#">Blog</a></li>
+            <li><a href="#">Customers</a></li>
             <li><a href="#">Careers</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Support</h4>
-          <ul>
-            <li><a href="#">Documentation</a></li>
-            <li><a href="#">API Reference</a></li>
-            <li><a href="signup.html">Get Started</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        &copy; 2026 MetricFlow. This is a demo site for Rebrandly Conversion Tracking testing.
+        &copy; 2026 Ledgerly. This is a demo site for Rebrandly Conversion Tracking testing.
       </div>
     </div>
   </footer>

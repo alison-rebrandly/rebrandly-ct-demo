@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up - MetricFlow</title>
+  <title>Ledgerly — Get Started Free</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="tour.css">
   <!-- REBRANDLY CONVERSION TRACKING -->
@@ -11,69 +11,94 @@
 </head>
 <body>
 
-  <!-- Nav -->
   <nav class="nav">
     <div class="container">
       <a href="index.html" class="nav-logo">
-        <svg viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="#7c3aed"/><path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        MetricFlow
+        <svg viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="#1e3a8a"/><path d="M8 10h12M8 14h12M8 18h8" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+        Ledgerly
       </a>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="features.html">Features</a></li>
+        <li class="has-dropdown">
+          <a href="features.html">Features</a>
+          <ul class="nav-dropdown">
+            <li><a href="features.html">Overview</a></li>
+            <li><a href="feature-invoice-capture.html">Invoice Capture</a></li>
+            <li><a href="feature-approvals.html">Approval Workflows</a></li>
+            <li><a href="feature-payments.html">Payments</a></li>
+            <li><a href="feature-integrations.html">Integrations</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">Industries</a>
+          <ul class="nav-dropdown">
+            <li><a href="industry-construction.html">Construction</a></li>
+            <li><a href="industry-services.html">Professional Services</a></li>
+            <li><a href="industry-healthcare.html">Healthcare</a></li>
+            <li><a href="industry-manufacturing.html">Manufacturing</a></li>
+            <li><a href="industry-nonprofits.html">Nonprofits</a></li>
+          </ul>
+        </li>
         <li><a href="pricing.html">Pricing</a></li>
-        <li><a href="use-cases.html">Use Cases</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- Signup Form -->
-  <section class="form-page">
-    <div class="container">
-      <div class="form-wrapper">
-        <h1>Start your free trial</h1>
-        <p>No credit card required. Get conversion data in under 30 minutes.</p>
-
-        <form id="signup-form" action="thank-you.html" method="GET">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="first-name">First name</label>
-              <input type="text" id="first-name" name="first_name" placeholder="Jane" required>
-            </div>
-            <div class="form-group">
-              <label for="last-name">Last name</label>
-              <input type="text" id="last-name" name="last_name" placeholder="Smith" required>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="email">Work email</label>
-            <input type="email" id="email" name="email" placeholder="jane@company.com" required>
-          </div>
-
-          <div class="form-group">
-            <label for="company">Company name</label>
-            <input type="text" id="company" name="company" placeholder="Acme Corp">
-          </div>
-
-          <div class="form-group">
-            <label for="plan">Plan</label>
-            <select id="plan" name="plan">
-              <option value="starter">Starter (Free)</option>
-              <option value="professional" selected>Professional ($79/mo)</option>
-              <option value="enterprise">Enterprise (Contact Sales)</option>
-            </select>
-          </div>
-
-          <button type="submit" class="btn btn-primary btn-large">Create Account</button>
-        </form>
-
-        <div class="form-footer">
-          Already have an account? <a href="#">Sign in</a>
-        </div>
-      </div>
+  <section class="hero">
+    <div class="container" style="max-width: 480px;">
+      <h1>Start free</h1>
+      <p>One user, 10 invoices a month, no credit card. Upgrade when you outgrow it.</p>
+      <form id="signup-form" style="margin-top: 1.5rem; display: grid; gap: 0.75rem; text-align: left;">
+        <input type="email" id="email" name="email" placeholder="Work email" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+        <input type="text" id="company" name="company" placeholder="Company" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+        <button type="submit" class="btn btn-primary btn-large">Create my Ledgerly account</button>
+      </form>
+      <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-light);">Already have an account? <a href="#">Sign in</a>.</p>
     </div>
   </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo" style="color:#fff;">
+            <svg viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="#1e3a8a"/><path d="M8 10h12M8 14h12M8 18h8" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+            Ledgerly
+          </div>
+          <p>The fastest way to pay vendors and close the books. Built for finance teams that need to move at the speed of their business.</p>
+        </div>
+        <div>
+          <h4>Product</h4>
+          <ul>
+            <li><a href="features.html">Features</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="feature-integrations.html">Integrations</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Industries</h4>
+          <ul>
+            <li><a href="industry-construction.html">Construction</a></li>
+            <li><a href="industry-services.html">Professional Services</a></li>
+            <li><a href="industry-healthcare.html">Healthcare</a></li>
+            <li><a href="industry-manufacturing.html">Manufacturing</a></li>
+            <li><a href="industry-nonprofits.html">Nonprofits</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Customers</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 Ledgerly. This is a demo site for Rebrandly Conversion Tracking testing.
+      </div>
+    </div>
+  </footer>
 
   <script src="app.js"></script>
   <script src="tour.js"></script>
