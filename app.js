@@ -29,12 +29,15 @@
   };
 
   function track(eventName, revenue, currency, properties) {
-    if (typeof trackConversion === "function") {
-      var payload = { eventName: eventName };
-      if (revenue != null) payload.revenue = revenue;
-      if (currency) payload.currency = currency;
-      if (properties) payload.properties = properties;
-      trackConversion(payload);
+    var props = properties || {};
+    if (window.rbly && typeof window.rbly.track === "function") {
+      if (revenue != null) {
+        window.rbly.track(eventName, props, revenue, currency || "USD");
+      } else {
+        window.rbly.track(eventName, props);
+      }
+    } else {
+      console.warn("[Rebrandly CT] rbly.track not available — SDK may not be loaded yet");
     }
     console.log("[Rebrandly CT]", eventName, { revenue: revenue, currency: currency, properties: properties });
   }
