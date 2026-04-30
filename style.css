@@ -304,6 +304,8 @@ img {
   padding: 24px 20px;
   text-align: center;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .pricing-card.featured {
@@ -368,6 +370,7 @@ img {
 .pricing-card .btn {
   width: 100%;
   justify-content: center;
+  margin-top: auto;
 }
 
 /* === Testimonials === */
