@@ -42,18 +42,61 @@
       min-height: 540px;
     }
     .card-label {
-      background: #111827; color: #fff;
-      padding: 8px 14px; font-size: 0.7rem; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      display: flex; align-items: center; justify-content: space-between;
+      color: #fff;
+      padding: 10px 14px; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      display: flex; align-items: center; gap: 10px;
     }
-    .card-label .channel-tag { color: #9ca3af; font-weight: 500; letter-spacing: 0.08em; }
+    .card-label .icon {
+      width: 22px; height: 22px;
+      flex-shrink: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 4px;
+      background: #fff; color: #111;
+      font-weight: 800; font-size: 0.78rem;
+      line-height: 1; letter-spacing: 0;
+    }
+    .card-label .name { flex: 1; }
+    .card-label .channel-tag { color: rgba(255,255,255,0.75); font-weight: 500; letter-spacing: 0.06em; font-size: 0.66rem; }
+
+    /* Platform-specific label backgrounds + icons */
+    .label-email     { background: #4b5563; }
+    .label-email .icon { background: #fff; color: #4b5563; }
+    .label-linkedin  { background: #0a66c2; }
+    .label-linkedin .icon { background: #fff; color: #0a66c2; font-style: italic; }
+    .label-google    { background: #fff; color: #1f2937; border-bottom: 1px solid #e5e7eb; }
+    .label-google .channel-tag { color: #6b7280; }
+    .label-google .icon { background: transparent; padding: 0; }
+    .label-google .icon span { font-weight: 800; font-size: 1rem; }
+    .label-google .b { color: #4285f4; } .label-google .r { color: #ea4335; }
+    .label-google .y { color: #fbbc04; } .label-google .g { color: #34a853; }
+    .label-facebook  { background: #1877f2; }
+    .label-facebook .icon { background: #fff; color: #1877f2; font-family: Helvetica, sans-serif; font-size: 0.95rem; }
+    .label-twitter   { background: #000; }
+    .label-twitter .icon { background: #fff; color: #000; font-size: 0.85rem; }
+    .label-newsletter { background: #92400e; }
+    .label-newsletter .icon { background: #fef3c7; color: #92400e; }
+    .label-affiliate { background: #1f2937; }
+    .label-affiliate .icon { background: #fbbf24; color: #78350f; }
+    .label-referral  { background: #4a154b; }
+    .label-referral .icon { background: #ecb22e; color: #4a154b; font-size: 0.9rem; }
+    .label-reddit    { background: #ff4500; }
+    .label-reddit .icon { background: #fff; color: #ff4500; }
+    .label-direct    { background: #111827; }
+    .label-direct .icon { background: #fff; color: #111827; font-size: 0.95rem; }
+    .label-instagram { background: linear-gradient(135deg, #f09433 0%, #dc2743 50%, #bc1888 100%); }
+    .label-instagram .icon { background: #fff; color: #dc2743; font-size: 0.95rem; }
+
     .card-mock { flex: 1; display: flex; flex-direction: column; min-height: 0; }
     .card-cta { padding: 12px 14px 14px; }
     .card-cta a {
-      display: block; text-align: center; padding: 10px;
-      border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.88rem;
+      display: block; text-align: center; padding: 11px;
+      border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.88rem;
+      background: #f97316; color: #fff;
+      box-shadow: 0 2px 6px rgba(249, 115, 22, 0.25);
+      transition: background 0.15s, box-shadow 0.15s;
     }
+    .card-cta a:hover { background: #ea580c; box-shadow: 0 4px 10px rgba(249, 115, 22, 0.35); }
 
     /* === INSTAGRAM === */
     .ig-header { display: flex; align-items: center; padding: 10px 12px; border-bottom: 1px solid #efefef; }
@@ -68,7 +111,6 @@
     .ig-actions .save { margin-left: auto; }
     .ig-likes { padding: 0 12px 4px; font-size: 0.78rem; font-weight: 600; }
     .ig-caption { padding: 0 12px 8px; font-size: 0.78rem; line-height: 1.4; }
-    .ig-cta a { background: linear-gradient(135deg, #f09433, #dc2743 50%, #bc1888); color: #fff; }
 
     /* === REDDIT === */
     .rd { display: flex; flex: 1; min-height: 0; }
@@ -83,7 +125,6 @@
     .rd-text { font-size: 0.78rem; color: #1c1c1c; flex: 1; }
     .rd-text p { margin-bottom: 6px; }
     .rd-actions { display: flex; gap: 12px; font-size: 0.7rem; color: #878a8c; font-weight: 700; padding-top: 8px; border-top: 1px solid #f0f0f0; margin-top: 8px; }
-    .rd-cta a { background: #ff4500; color: #fff; border-radius: 999px; }
 
     /* === EMAIL === */
     .em-from { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #fafafa; border-bottom: 1px solid #e5e7eb; }
@@ -100,7 +141,6 @@
     .em-content p { font-size: 0.78rem; color: #1f2937; margin-bottom: 8px; }
     .em-content ul { padding-left: 18px; margin-bottom: 8px; }
     .em-content li { font-size: 0.76rem; margin-bottom: 3px; }
-    .em-cta a { background: #1e3a8a; color: #fff; }
 
     /* === LINKEDIN AD === */
     .li { padding: 12px 14px 4px; flex: 1; display: flex; flex-direction: column; }
@@ -114,7 +154,6 @@
     .li-text strong { font-weight: 600; }
     .li-image { background: linear-gradient(135deg, #0a66c2, #1e3a8a); height: 110px; border-radius: 4px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 0.95rem; padding: 14px; text-align: center; }
     .li-actions { display: flex; gap: 16px; padding: 8px 0; border-top: 1px solid #e5e5e5; font-size: 0.75rem; color: #666; font-weight: 600; }
-    .li-cta a { background: #0a66c2; color: #fff; }
 
     /* === GOOGLE ADS === */
     .gg-bar { background: #fff; border-bottom: 1px solid #e8eaed; padding: 10px 14px; display: flex; align-items: center; gap: 8px; }
@@ -128,7 +167,6 @@
     .gg-desc { font-size: 0.8rem; color: #4d5156; line-height: 1.4; margin-bottom: 12px; }
     .gg-sitelinks { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; font-size: 0.78rem; }
     .gg-sitelinks div { color: #1a0dab; }
-    .gg-cta a { background: #1a0dab; color: #fff; }
 
     /* === FACEBOOK AD === */
     .fb-header { display: flex; align-items: center; gap: 10px; padding: 10px 14px; }
@@ -142,7 +180,6 @@
     .fb-link-bar .url { font-size: 0.7rem; color: #65676b; text-transform: uppercase; }
     .fb-link-bar .ttl { font-size: 0.85rem; font-weight: 600; }
     .fb-actions { display: flex; padding: 6px 14px; gap: 14px; font-size: 0.78rem; color: #65676b; font-weight: 600; }
-    .fb-cta a { background: #1877f2; color: #fff; }
 
     /* === TWITTER / X === */
     .tw-body { padding: 14px; flex: 1; }
@@ -159,7 +196,6 @@
     .tw-card-meta .host { color: #536471; }
     .tw-card-meta .ttl { font-weight: 600; }
     .tw-actions { display: flex; gap: 18px; font-size: 0.78rem; color: #536471; padding-top: 6px; border-top: 1px solid #eff3f4; }
-    .tw-cta a { background: #000; color: #fff; }
 
     /* === NEWSLETTER === */
     .nl-banner { background: #fef3c7; padding: 14px; border-bottom: 2px solid #f59e0b; text-align: center; }
@@ -175,7 +211,6 @@
     .nl-text { font-size: 0.82rem; color: #1f2937; line-height: 1.55; }
     .nl-text p { margin-bottom: 8px; }
     .nl-text em { font-style: italic; color: #92400e; }
-    .nl-cta a { background: #92400e; color: #fef3c7; font-family: Georgia, serif; }
 
     /* === AFFILIATE BLOG === */
     .af-bar { background: #f9fafb; padding: 8px 14px; border-bottom: 1px solid #e5e7eb; font-size: 0.7rem; color: #6b7280; display: flex; justify-content: space-between; }
@@ -188,7 +223,6 @@
     .af-rank-num { width: 32px; height: 32px; border-radius: 50%; background: #fbbf24; color: #78350f; font-weight: 800; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .af-rank-text .name { font-size: 0.88rem; font-weight: 700; }
     .af-rank-text .pitch { font-size: 0.76rem; color: #4b5563; line-height: 1.4; margin-top: 2px; }
-    .af-cta a { background: #2563eb; color: #fff; }
 
     /* === REFERRAL (SLACK DM) === */
     .sl-header { background: #4a154b; color: #fff; padding: 10px 14px; }
@@ -204,7 +238,6 @@
     .sl-link-preview { margin-top: 8px; padding: 10px 12px; border-left: 3px solid #2563eb; background: #f8f9fa; border-radius: 4px; }
     .sl-link-preview .host { font-size: 0.7rem; color: #616061; }
     .sl-link-preview .title { font-size: 0.82rem; color: #1264a3; font-weight: 600; }
-    .sl-cta a { background: #007a5a; color: #fff; }
 
     /* === DIRECT === */
     .dr-bar { background: #f0f2f5; padding: 12px; border-bottom: 1px solid #d1d5db; }
@@ -222,7 +255,6 @@
     .dr-bookmark { background: #f9fafb; padding: 10px 6px; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.72rem; color: #4b5563; }
     .dr-bookmark.active { background: #1e3a8a; color: #fff; border-color: #1e3a8a; font-weight: 600; }
     .dr-bookmark .ic { font-size: 1.2rem; display: block; margin-bottom: 4px; }
-    .dr-cta a { background: #1f2937; color: #fff; }
 
   </style>
 </head>
@@ -237,7 +269,7 @@
 
     <!-- 1. EMAIL -->
     <article class="card">
-      <div class="card-label">Email <span class="channel-tag">utm_source=email</span></div>
+      <div class="card-label label-email"><span class="icon">✉</span><span class="name">Email</span><span class="channel-tag">utm_source=email</span></div>
       <div class="card-mock">
         <div class="em-from">
           <div class="em-from-avatar">L</div>
@@ -259,7 +291,7 @@
 
     <!-- 2. LINKEDIN AD -->
     <article class="card">
-      <div class="card-label">LinkedIn Ad <span class="channel-tag">paid_social</span></div>
+      <div class="card-label label-linkedin"><span class="icon"><span style="font-style:italic;">in</span></span><span class="name">LinkedIn Ad</span><span class="channel-tag">paid_social</span></div>
       <div class="card-mock li">
         <div class="li-header">
           <div class="li-logo">L</div>
@@ -274,7 +306,7 @@
 
     <!-- 3. GOOGLE ADS -->
     <article class="card">
-      <div class="card-label">Google Ads <span class="channel-tag">paid_search</span></div>
+      <div class="card-label label-google"><span class="icon"><span class="b">G</span></span><span class="name">Google Ads</span><span class="channel-tag">paid_search</span></div>
       <div class="card-mock">
         <div class="gg-bar">
           <div class="gg-logo"><span class="b">G</span><span class="r">o</span><span class="y">o</span><span class="b">g</span><span class="g">l</span><span class="r">e</span></div>
@@ -293,7 +325,7 @@
 
     <!-- 4. FACEBOOK AD -->
     <article class="card">
-      <div class="card-label">Facebook Ad <span class="channel-tag">paid_social</span></div>
+      <div class="card-label label-facebook"><span class="icon">f</span><span class="name">Facebook Ad</span><span class="channel-tag">paid_social</span></div>
       <div class="card-mock">
         <div class="fb-header">
           <div class="fb-avatar">L</div>
@@ -309,7 +341,7 @@
 
     <!-- 5. TWITTER / X -->
     <article class="card">
-      <div class="card-label">Twitter / X <span class="channel-tag">organic_social</span></div>
+      <div class="card-label label-twitter"><span class="icon">𝕏</span><span class="name">Twitter / X</span><span class="channel-tag">organic_social</span></div>
       <div class="card-mock">
         <div class="tw-body">
           <div class="tw-header">
@@ -329,7 +361,7 @@
 
     <!-- 6. NEWSLETTER -->
     <article class="card">
-      <div class="card-label">Newsletter <span class="channel-tag">utm_source=newsletter</span></div>
+      <div class="card-label label-newsletter"><span class="icon">📰</span><span class="name">Newsletter</span><span class="channel-tag">utm_source=newsletter</span></div>
       <div class="card-mock">
         <div class="nl-banner"><div class="pub">CFO Brief</div><div class="issue">Issue #142 · Tuesday morning</div></div>
         <div class="nl-body">
@@ -349,7 +381,7 @@
 
     <!-- 7. AFFILIATE -->
     <article class="card">
-      <div class="card-label">Affiliate Blog <span class="channel-tag">utm_source=affiliate</span></div>
+      <div class="card-label label-affiliate"><span class="icon">🏷</span><span class="name">Affiliate Blog</span><span class="channel-tag">utm_source=affiliate</span></div>
       <div class="card-mock">
         <div class="af-bar"><span>FinanceStack.io</span><span>5 min read</span></div>
         <div class="af-body">
@@ -368,7 +400,7 @@
 
     <!-- 8. REFERRAL (SLACK DM) -->
     <article class="card">
-      <div class="card-label">Referral (DM) <span class="channel-tag">utm_source=partner</span></div>
+      <div class="card-label label-referral"><span class="icon">#</span><span class="name">Referral (DM)</span><span class="channel-tag">utm_source=partner</span></div>
       <div class="card-mock">
         <div class="sl-header"><div class="sl-channel">💬 Direct Message</div><div class="sl-meta">with Sarah Kim</div></div>
         <div class="sl-body">
@@ -387,7 +419,7 @@
 
     <!-- 9. REDDIT -->
     <article class="card">
-      <div class="card-label">Reddit <span class="channel-tag">organic_social</span></div>
+      <div class="card-label label-reddit"><span class="icon">r</span><span class="name">Reddit</span><span class="channel-tag">organic_social</span></div>
       <div class="card-mock rd">
         <div class="rd-vote">
           <div class="arrow up">▲</div>
@@ -409,7 +441,7 @@
 
     <!-- 10. DIRECT -->
     <article class="card">
-      <div class="card-label">Direct <span class="channel-tag">utm_source=direct</span></div>
+      <div class="card-label label-direct"><span class="icon">🌐</span><span class="name">Direct</span><span class="channel-tag">utm_source=direct</span></div>
       <div class="card-mock">
         <div class="dr-bar">
           <div class="dr-controls"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
@@ -432,7 +464,7 @@
 
     <!-- 11. INSTAGRAM -->
     <article class="card">
-      <div class="card-label">Instagram <span class="channel-tag">organic_social</span></div>
+      <div class="card-label label-instagram"><span class="icon">📷</span><span class="name">Instagram</span><span class="channel-tag">organic_social</span></div>
       <div class="card-mock">
         <div class="ig-header">
           <div class="ig-avatar"><div class="ig-avatar-inner">L</div></div>
