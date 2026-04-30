@@ -3,277 +3,447 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>How customers find Ledgerly</title>
+  <title>How customers find Ledgerly — channel attribution demo</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: #f3f4f6;
       color: #111827;
-      line-height: 1.5;
-      padding: 32px 16px 48px;
+      line-height: 1.45;
+      padding: 32px 16px 56px;
     }
     .page-header {
       text-align: center;
       margin-bottom: 36px;
-      max-width: 760px;
+      max-width: 780px;
       margin-left: auto;
       margin-right: auto;
     }
-    .page-header h1 {
-      font-size: 2rem;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-    .page-header p {
-      color: #4b5563;
-      font-size: 1rem;
-    }
+    .page-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+    .page-header p { color: #4b5563; font-size: 0.98rem; }
+
     .channels {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 24px;
-      max-width: 1280px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+      max-width: 1480px;
       margin: 0 auto;
-      align-items: start;
+      align-items: stretch;
     }
-    @media (max-width: 980px) { .channels { grid-template-columns: 1fr; max-width: 480px; } }
-    .card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.05); }
+    @media (max-width: 1280px) { .channels { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 1100px; } }
+    @media (max-width: 920px)  { .channels { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 720px; } }
+    @media (max-width: 580px)  { .channels { grid-template-columns: 1fr; max-width: 420px; } }
+
+    .card {
+      background: #fff; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 10px rgba(0,0,0,0.05);
+      display: flex; flex-direction: column;
+      min-height: 540px;
+    }
+    .card-label {
+      background: #111827; color: #fff;
+      padding: 8px 14px; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .card-label .channel-tag { color: #9ca3af; font-weight: 500; letter-spacing: 0.08em; }
+    .card-mock { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+    .card-cta { padding: 12px 14px 14px; }
+    .card-cta a {
+      display: block; text-align: center; padding: 10px;
+      border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.88rem;
+    }
 
     /* === INSTAGRAM === */
-    .ig { font-family: -apple-system, sans-serif; }
-    .ig-header { display: flex; align-items: center; padding: 12px 14px; border-bottom: 1px solid #efefef; }
-    .ig-avatar {
-      width: 36px; height: 36px; border-radius: 50%;
-      background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-      padding: 2px;
-      flex-shrink: 0;
-    }
-    .ig-avatar-inner {
-      width: 100%; height: 100%; border-radius: 50%;
-      background: #fff; display: flex; align-items: center; justify-content: center;
-      font-weight: 700; color: #1e3a8a; font-size: 0.85rem;
-    }
-    .ig-username { margin-left: 12px; font-size: 0.9rem; font-weight: 600; }
+    .ig-header { display: flex; align-items: center; padding: 10px 12px; border-bottom: 1px solid #efefef; }
+    .ig-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f09433 0%, #dc2743 50%, #bc1888 100%); padding: 2px; flex-shrink: 0; }
+    .ig-avatar-inner { width: 100%; height: 100%; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #1e3a8a; font-size: 0.78rem; }
+    .ig-username { margin-left: 10px; font-size: 0.82rem; font-weight: 600; flex: 1; min-width: 0; }
     .ig-username .verified { color: #0095f6; margin-left: 2px; }
-    .ig-username .location { display: block; font-size: 0.72rem; font-weight: 400; color: #8e8e8e; }
-    .ig-more { margin-left: auto; color: #262626; font-size: 1.4rem; line-height: 1; padding: 4px; }
-    .ig-image {
-      aspect-ratio: 1 / 1;
-      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #06b6d4 100%);
-      position: relative;
-      display: flex; align-items: center; justify-content: center;
-      color: #fff; padding: 24px; text-align: center;
-    }
-    .ig-image .quote {
-      font-size: 1.4rem; font-weight: 700; line-height: 1.25;
-      max-width: 280px;
-    }
-    .ig-image .product-tag {
-      position: absolute; bottom: 14px; left: 14px;
-      background: rgba(255,255,255,0.95); color: #1e3a8a;
-      font-size: 0.72rem; font-weight: 700;
-      padding: 5px 10px; border-radius: 4px;
-      display: flex; align-items: center; gap: 6px;
-    }
-    .ig-actions { display: flex; padding: 8px 14px; gap: 14px; font-size: 1.4rem; color: #262626; }
+    .ig-username .sub { display: block; font-size: 0.68rem; font-weight: 400; color: #8e8e8e; }
+    .ig-image { aspect-ratio: 1 / 1; background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #06b6d4 100%); display: flex; align-items: center; justify-content: center; color: #fff; padding: 18px; text-align: center; position: relative; }
+    .ig-image .quote { font-size: 1.1rem; font-weight: 700; line-height: 1.25; }
+    .ig-actions { display: flex; padding: 8px 12px; gap: 12px; font-size: 1.2rem; color: #262626; }
     .ig-actions .save { margin-left: auto; }
-    .ig-likes { padding: 0 14px 6px; font-size: 0.85rem; font-weight: 600; }
-    .ig-caption { padding: 0 14px 6px; font-size: 0.85rem; }
-    .ig-caption strong { font-weight: 600; margin-right: 6px; }
-    .ig-comments { padding: 0 14px 4px; color: #8e8e8e; font-size: 0.8rem; }
-    .ig-time { padding: 0 14px 12px; color: #8e8e8e; font-size: 0.7rem; text-transform: uppercase; }
-    .ig-cta { padding: 0 14px 16px; }
-    .ig-cta a {
-      display: block; width: 100%;
-      background: linear-gradient(135deg, #f09433, #dc2743 50%, #bc1888);
-      color: #fff; text-decoration: none; text-align: center;
-      padding: 11px; border-radius: 8px; font-weight: 600; font-size: 0.9rem;
-    }
+    .ig-likes { padding: 0 12px 4px; font-size: 0.78rem; font-weight: 600; }
+    .ig-caption { padding: 0 12px 8px; font-size: 0.78rem; line-height: 1.4; }
+    .ig-cta a { background: linear-gradient(135deg, #f09433, #dc2743 50%, #bc1888); color: #fff; }
 
     /* === REDDIT === */
-    .rd { display: flex; }
-    .rd-vote {
-      width: 40px; flex-shrink: 0; background: #f8f9fa;
-      display: flex; flex-direction: column; align-items: center;
-      padding: 8px 0; border-radius: 12px 0 0 12px;
-    }
-    .rd-vote .arrow { font-size: 1.1rem; color: #878a8c; cursor: pointer; line-height: 1; padding: 4px; }
+    .rd { display: flex; flex: 1; min-height: 0; }
+    .rd-vote { width: 36px; flex-shrink: 0; background: #f8f9fa; display: flex; flex-direction: column; align-items: center; padding: 8px 0; }
+    .rd-vote .arrow { font-size: 1rem; color: #878a8c; line-height: 1; padding: 4px; }
     .rd-vote .arrow.up { color: #ff4500; }
-    .rd-vote .score { font-size: 0.78rem; font-weight: 700; color: #1c1c1c; padding: 2px 0; }
-    .rd-body { padding: 12px 14px 14px; flex: 1; min-width: 0; }
-    .rd-meta { display: flex; align-items: center; gap: 4px; font-size: 0.72rem; color: #787c7e; flex-wrap: wrap; margin-bottom: 6px; }
+    .rd-vote .score { font-size: 0.74rem; font-weight: 700; color: #1c1c1c; padding: 2px 0; }
+    .rd-body { padding: 10px 12px 12px; flex: 1; min-width: 0; display: flex; flex-direction: column; }
+    .rd-meta { display: flex; align-items: center; gap: 4px; font-size: 0.66rem; color: #787c7e; flex-wrap: wrap; margin-bottom: 6px; }
     .rd-meta .sub { color: #1c1c1c; font-weight: 700; }
-    .rd-meta .dot { padding: 0 2px; }
-    .rd-title { font-size: 1.05rem; font-weight: 600; color: #222222; margin-bottom: 8px; line-height: 1.3; }
-    .rd-text { font-size: 0.85rem; color: #1c1c1c; margin-bottom: 12px; }
-    .rd-text p { margin-bottom: 8px; }
-    .rd-text p:last-child { margin-bottom: 0; }
-    .rd-link-card {
-      border: 1px solid #ccc; border-radius: 6px; padding: 10px 12px;
-      display: flex; gap: 10px; align-items: center; margin-bottom: 12px;
-      background: #fff;
-    }
-    .rd-link-card .lc-icon {
-      width: 36px; height: 36px; flex-shrink: 0;
-      background: #1e3a8a; color: #fff;
-      border-radius: 6px; display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: 0.95rem;
-    }
-    .rd-link-card .lc-meta { flex: 1; min-width: 0; }
-    .rd-link-card .lc-host { font-size: 0.7rem; color: #787c7e; text-transform: uppercase; }
-    .rd-link-card .lc-title { font-size: 0.82rem; font-weight: 600; color: #1c1c1c; }
-    .rd-actions { display: flex; gap: 14px; font-size: 0.78rem; color: #878a8c; font-weight: 700; padding-top: 6px; border-top: 1px solid #f0f0f0; }
-    .rd-actions span { padding: 4px 0; }
-    .rd-cta { padding-top: 14px; }
-    .rd-cta a {
-      display: block; background: #ff4500; color: #fff; text-decoration: none;
-      text-align: center; padding: 10px; border-radius: 999px;
-      font-weight: 700; font-size: 0.85rem;
-    }
+    .rd-title { font-size: 0.95rem; font-weight: 600; color: #222; margin-bottom: 8px; line-height: 1.3; }
+    .rd-text { font-size: 0.78rem; color: #1c1c1c; flex: 1; }
+    .rd-text p { margin-bottom: 6px; }
+    .rd-actions { display: flex; gap: 12px; font-size: 0.7rem; color: #878a8c; font-weight: 700; padding-top: 8px; border-top: 1px solid #f0f0f0; margin-top: 8px; }
+    .rd-cta a { background: #ff4500; color: #fff; border-radius: 999px; }
 
     /* === EMAIL === */
-    .em-header { padding: 12px 16px; border-bottom: 1px solid #e5e7eb; background: #fafafa; }
-    .em-from { display: flex; align-items: center; gap: 10px; }
-    .em-from-avatar {
-      width: 32px; height: 32px; border-radius: 50%;
-      background: #1e3a8a; color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: 0.85rem; flex-shrink: 0;
-    }
-    .em-from-text { flex: 1; min-width: 0; font-size: 0.82rem; }
+    .em-from { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #fafafa; border-bottom: 1px solid #e5e7eb; }
+    .em-from-avatar { width: 28px; height: 28px; border-radius: 50%; background: #1e3a8a; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.78rem; flex-shrink: 0; }
+    .em-from-text { flex: 1; min-width: 0; font-size: 0.78rem; }
     .em-from-text .name { font-weight: 600; color: #111827; }
-    .em-from-text .addr { color: #6b7280; font-size: 0.74rem; }
-    .em-time { font-size: 0.72rem; color: #6b7280; }
-    .em-subject { padding: 12px 16px 6px; font-size: 1rem; font-weight: 600; color: #111827; }
-    .em-preview { padding: 0 16px 14px; font-size: 0.82rem; color: #6b7280; }
-    .em-body { padding: 22px 24px 24px; background: #fff; }
-    .em-hero {
-      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-      color: #fff; padding: 28px 24px; border-radius: 8px;
-      text-align: center; margin-bottom: 20px;
-    }
-    .em-hero h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; line-height: 1.2; }
-    .em-hero p { font-size: 0.85rem; opacity: 0.9; }
-    .em-content { font-size: 0.9rem; color: #1f2937; }
-    .em-content p { margin-bottom: 12px; }
-    .em-content ul { padding-left: 20px; margin-bottom: 14px; }
-    .em-content li { margin-bottom: 4px; font-size: 0.88rem; }
-    .em-cta { text-align: center; padding: 8px 0 16px; }
-    .em-cta a {
-      display: inline-block; background: #1e3a8a; color: #fff;
-      text-decoration: none; padding: 12px 32px; border-radius: 6px;
-      font-weight: 600; font-size: 0.9rem;
-    }
-    .em-signoff { font-size: 0.85rem; color: #4b5563; margin-top: 10px; }
-    .em-footer-text { font-size: 0.7rem; color: #9ca3af; text-align: center; padding-top: 14px; border-top: 1px solid #e5e7eb; margin-top: 18px; }
+    .em-from-text .addr { color: #6b7280; font-size: 0.68rem; }
+    .em-time { font-size: 0.66rem; color: #6b7280; }
+    .em-subject { padding: 10px 14px 4px; font-size: 0.92rem; font-weight: 600; }
+    .em-preview { padding: 0 14px 10px; font-size: 0.74rem; color: #6b7280; }
+    .em-body { padding: 14px; flex: 1; }
+    .em-hero { background: linear-gradient(135deg, #1e3a8a, #2563eb); color: #fff; padding: 18px 14px; border-radius: 6px; text-align: center; margin-bottom: 12px; }
+    .em-hero h2 { font-size: 1rem; font-weight: 800; line-height: 1.2; }
+    .em-content p { font-size: 0.78rem; color: #1f2937; margin-bottom: 8px; }
+    .em-content ul { padding-left: 18px; margin-bottom: 8px; }
+    .em-content li { font-size: 0.76rem; margin-bottom: 3px; }
+    .em-cta a { background: #1e3a8a; color: #fff; }
+
+    /* === LINKEDIN AD === */
+    .li { padding: 12px 14px 4px; flex: 1; display: flex; flex-direction: column; }
+    .li-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+    .li-logo { width: 44px; height: 44px; border-radius: 4px; background: #1e3a8a; color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.1rem; }
+    .li-meta { flex: 1; min-width: 0; }
+    .li-meta .company { font-size: 0.85rem; font-weight: 600; color: #000; }
+    .li-meta .followers { font-size: 0.7rem; color: #666; }
+    .li-meta .promoted { font-size: 0.7rem; color: #666; margin-top: 2px; }
+    .li-text { font-size: 0.8rem; color: #1c1c1c; margin-bottom: 10px; line-height: 1.4; flex: 1; }
+    .li-text strong { font-weight: 600; }
+    .li-image { background: linear-gradient(135deg, #0a66c2, #1e3a8a); height: 110px; border-radius: 4px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 0.95rem; padding: 14px; text-align: center; }
+    .li-actions { display: flex; gap: 16px; padding: 8px 0; border-top: 1px solid #e5e5e5; font-size: 0.75rem; color: #666; font-weight: 600; }
+    .li-cta a { background: #0a66c2; color: #fff; }
+
+    /* === GOOGLE ADS === */
+    .gg-bar { background: #fff; border-bottom: 1px solid #e8eaed; padding: 10px 14px; display: flex; align-items: center; gap: 8px; }
+    .gg-logo { font-size: 1.1rem; font-weight: 700; }
+    .gg-logo .b { color: #4285f4; } .gg-logo .r { color: #ea4335; } .gg-logo .y { color: #fbbc04; } .gg-logo .g { color: #34a853; }
+    .gg-search { flex: 1; background: #f1f3f4; border-radius: 999px; padding: 6px 12px; font-size: 0.78rem; color: #5f6368; }
+    .gg-results { padding: 14px; flex: 1; }
+    .gg-ad-tag { display: inline-block; font-size: 0.68rem; font-weight: 700; color: #006621; border: 1px solid #006621; padding: 0 4px; border-radius: 3px; margin-bottom: 4px; }
+    .gg-url { font-size: 0.74rem; color: #006621; margin-bottom: 2px; }
+    .gg-title { font-size: 1.05rem; color: #1a0dab; font-weight: 400; line-height: 1.3; margin-bottom: 4px; }
+    .gg-desc { font-size: 0.8rem; color: #4d5156; line-height: 1.4; margin-bottom: 12px; }
+    .gg-sitelinks { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; font-size: 0.78rem; }
+    .gg-sitelinks div { color: #1a0dab; }
+    .gg-cta a { background: #1a0dab; color: #fff; }
+
+    /* === FACEBOOK AD === */
+    .fb-header { display: flex; align-items: center; gap: 10px; padding: 10px 14px; }
+    .fb-avatar { width: 40px; height: 40px; border-radius: 50%; background: #1e3a8a; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .fb-meta { flex: 1; min-width: 0; }
+    .fb-meta .page { font-size: 0.85rem; font-weight: 600; }
+    .fb-meta .sponsored { font-size: 0.72rem; color: #65676b; }
+    .fb-text { padding: 0 14px 10px; font-size: 0.82rem; }
+    .fb-image { background: linear-gradient(135deg, #4267b2, #1e3a8a); height: 130px; display: flex; align-items: center; justify-content: center; color: #fff; padding: 14px; text-align: center; font-weight: 700; font-size: 1rem; }
+    .fb-link-bar { padding: 10px 14px; background: #f0f2f5; border-top: 1px solid #e4e6eb; border-bottom: 1px solid #e4e6eb; display: flex; align-items: center; justify-content: space-between; }
+    .fb-link-bar .url { font-size: 0.7rem; color: #65676b; text-transform: uppercase; }
+    .fb-link-bar .ttl { font-size: 0.85rem; font-weight: 600; }
+    .fb-actions { display: flex; padding: 6px 14px; gap: 14px; font-size: 0.78rem; color: #65676b; font-weight: 600; }
+    .fb-cta a { background: #1877f2; color: #fff; }
+
+    /* === TWITTER / X === */
+    .tw-body { padding: 14px; flex: 1; }
+    .tw-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+    .tw-avatar { width: 40px; height: 40px; border-radius: 50%; background: #1e3a8a; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .tw-meta { flex: 1; min-width: 0; }
+    .tw-meta .name { font-weight: 700; font-size: 0.88rem; }
+    .tw-meta .name .check { color: #1d9bf0; margin-left: 2px; }
+    .tw-meta .handle { font-size: 0.78rem; color: #536471; }
+    .tw-text { font-size: 0.92rem; line-height: 1.4; margin-bottom: 12px; }
+    .tw-card { border: 1px solid #cfd9de; border-radius: 14px; overflow: hidden; margin-bottom: 10px; }
+    .tw-card-img { background: linear-gradient(135deg, #1e3a8a, #2563eb); height: 100px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; padding: 14px; text-align: center; font-size: 0.95rem; }
+    .tw-card-meta { padding: 10px 12px; font-size: 0.78rem; }
+    .tw-card-meta .host { color: #536471; }
+    .tw-card-meta .ttl { font-weight: 600; }
+    .tw-actions { display: flex; gap: 18px; font-size: 0.78rem; color: #536471; padding-top: 6px; border-top: 1px solid #eff3f4; }
+    .tw-cta a { background: #000; color: #fff; }
+
+    /* === NEWSLETTER === */
+    .nl-banner { background: #fef3c7; padding: 14px; border-bottom: 2px solid #f59e0b; text-align: center; }
+    .nl-banner .pub { font-family: Georgia, serif; font-weight: 700; font-size: 1.1rem; color: #92400e; }
+    .nl-banner .issue { font-size: 0.72rem; color: #92400e; margin-top: 2px; }
+    .nl-body { padding: 14px; flex: 1; font-family: Georgia, serif; }
+    .nl-author { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #e5e7eb; }
+    .nl-author-avatar { width: 32px; height: 32px; border-radius: 50%; background: #92400e; color: #fff; font-weight: 700; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .nl-author-text { font-size: 0.78rem; }
+    .nl-author-text .nm { font-weight: 700; }
+    .nl-author-text .role { color: #6b7280; font-size: 0.7rem; }
+    .nl-headline { font-size: 1.05rem; font-weight: 700; color: #111827; margin-bottom: 8px; line-height: 1.3; }
+    .nl-text { font-size: 0.82rem; color: #1f2937; line-height: 1.55; }
+    .nl-text p { margin-bottom: 8px; }
+    .nl-text em { font-style: italic; color: #92400e; }
+    .nl-cta a { background: #92400e; color: #fef3c7; font-family: Georgia, serif; }
+
+    /* === AFFILIATE BLOG === */
+    .af-bar { background: #f9fafb; padding: 8px 14px; border-bottom: 1px solid #e5e7eb; font-size: 0.7rem; color: #6b7280; display: flex; justify-content: space-between; }
+    .af-body { padding: 14px; flex: 1; }
+    .af-cat { font-size: 0.68rem; color: #2563eb; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .af-title { font-size: 1.05rem; font-weight: 700; color: #111827; margin-bottom: 8px; line-height: 1.3; }
+    .af-meta { font-size: 0.72rem; color: #6b7280; margin-bottom: 12px; }
+    .af-disclosure { font-size: 0.66rem; font-style: italic; color: #6b7280; padding: 8px 10px; background: #fef3c7; border-radius: 4px; border-left: 3px solid #f59e0b; margin-bottom: 12px; }
+    .af-rank { display: flex; align-items: flex-start; gap: 10px; padding: 10px; border: 1px solid #e5e7eb; border-radius: 8px; }
+    .af-rank-num { width: 32px; height: 32px; border-radius: 50%; background: #fbbf24; color: #78350f; font-weight: 800; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .af-rank-text .name { font-size: 0.88rem; font-weight: 700; }
+    .af-rank-text .pitch { font-size: 0.76rem; color: #4b5563; line-height: 1.4; margin-top: 2px; }
+    .af-cta a { background: #2563eb; color: #fff; }
+
+    /* === REFERRAL (SLACK DM) === */
+    .sl-header { background: #4a154b; color: #fff; padding: 10px 14px; }
+    .sl-channel { font-size: 0.85rem; font-weight: 700; }
+    .sl-meta { font-size: 0.7rem; color: #d4c5d4; }
+    .sl-body { padding: 14px; flex: 1; }
+    .sl-msg { display: flex; gap: 10px; margin-bottom: 12px; }
+    .sl-msg-avatar { width: 36px; height: 36px; border-radius: 6px; background: #2563eb; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.85rem; }
+    .sl-msg-content { flex: 1; min-width: 0; }
+    .sl-msg-name { font-size: 0.85rem; font-weight: 700; }
+    .sl-msg-name .time { color: #616061; font-weight: 400; font-size: 0.7rem; margin-left: 6px; }
+    .sl-msg-text { font-size: 0.82rem; line-height: 1.5; color: #1d1c1d; }
+    .sl-link-preview { margin-top: 8px; padding: 10px 12px; border-left: 3px solid #2563eb; background: #f8f9fa; border-radius: 4px; }
+    .sl-link-preview .host { font-size: 0.7rem; color: #616061; }
+    .sl-link-preview .title { font-size: 0.82rem; color: #1264a3; font-weight: 600; }
+    .sl-cta a { background: #007a5a; color: #fff; }
+
+    /* === DIRECT === */
+    .dr-bar { background: #f0f2f5; padding: 12px; border-bottom: 1px solid #d1d5db; }
+    .dr-controls { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .dr-controls .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dr-controls .red { background: #ef4444; }
+    .dr-controls .yellow { background: #fbbf24; }
+    .dr-controls .green { background: #22c55e; }
+    .dr-url { background: #fff; border-radius: 6px; padding: 8px 12px; font-size: 0.78rem; color: #1f2937; border: 1px solid #d1d5db; display: flex; align-items: center; gap: 8px; }
+    .dr-url .lock { color: #6b7280; font-size: 0.78rem; }
+    .dr-url .typed { color: #1e3a8a; font-weight: 600; }
+    .dr-body { padding: 18px 14px; flex: 1; text-align: center; }
+    .dr-fav { font-size: 0.7rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+    .dr-bookmarks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 280px; margin: 0 auto; }
+    .dr-bookmark { background: #f9fafb; padding: 10px 6px; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.72rem; color: #4b5563; }
+    .dr-bookmark.active { background: #1e3a8a; color: #fff; border-color: #1e3a8a; font-weight: 600; }
+    .dr-bookmark .ic { font-size: 1.2rem; display: block; margin-bottom: 4px; }
+    .dr-cta a { background: #1f2937; color: #fff; }
+
   </style>
 </head>
 <body>
 
   <header class="page-header">
     <h1>How customers find Ledgerly</h1>
-    <p>Click any post below — each click is tracked through Rebrandly and attributed to its channel. After you land on Ledgerly, sign up, buy a plan, or talk to sales — and watch the conversion appear in real time.</p>
+    <p>Ten origin points, ten tracked Rebrandly links, one demo. Click any post — your visit attributes to that channel automatically. Sign up, buy, or talk to sales on the Ledgerly site and the conversion lands in the dashboard tagged to wherever you came from.</p>
   </header>
 
   <div class="channels">
 
-    <!-- =========== INSTAGRAM =========== -->
-    <article class="card ig">
-      <div class="ig-header">
-        <div class="ig-avatar"><div class="ig-avatar-inner">L</div></div>
-        <div class="ig-username">
-          ledgerly<span class="verified">✓</span>
-          <span class="location">Sponsored</span>
-        </div>
-        <div class="ig-more">⋯</div>
-      </div>
-      <div class="ig-image">
-        <div class="quote">Pay every vendor in one click.</div>
-        <div class="product-tag">🏷 Ledgerly · From $19/mo</div>
-      </div>
-      <div class="ig-actions">
-        <span>♡</span><span>💬</span><span>↗</span><span class="save">🔖</span>
-      </div>
-      <div class="ig-likes">12,847 likes</div>
-      <div class="ig-caption">
-        <strong>ledgerly</strong>Tired of chasing approvals every month-end? Ledgerly automates AP from invoice capture to payment — close your books in days, not weeks. ⚡<br><br>👉 Try free, no credit card.
-      </div>
-      <div class="ig-comments">View all 234 comments</div>
-      <div class="ig-time">2 hours ago</div>
-      <div class="ig-cta"><a href="https://rebrand.ly/demo-instagram" target="_blank">Try Ledgerly Free →</a></div>
-    </article>
-
-    <!-- =========== REDDIT =========== -->
-    <article class="card rd">
-      <div class="rd-vote">
-        <div class="arrow up">▲</div>
-        <div class="score">847</div>
-        <div class="arrow">▼</div>
-      </div>
-      <div class="rd-body">
-        <div class="rd-meta">
-          <span class="sub">r/Accounting</span>
-          <span class="dot">·</span>
-          <span>Posted by u/Indie_CFO</span>
-          <span class="dot">·</span>
-          <span>14h</span>
-        </div>
-        <div class="rd-title">Switched our 50-person company from Bill.com to Ledgerly — saved 12 hrs/week. AMA</div>
-        <div class="rd-text">
-          <p>We were spending the first week of every month chasing AP approvals across 6 departments. Migrated to Ledgerly two months ago and just closed January in 3 days flat.</p>
-          <p>The QuickBooks sync alone justified the switch. AI invoice capture is genuinely fast — like, 5 seconds per bill fast.</p>
-          <p>Anyway, mods said it was OK to share. Link below if you want to check it out:</p>
-        </div>
-        <div class="rd-link-card">
-          <div class="lc-icon">L</div>
-          <div class="lc-meta">
-            <div class="lc-host">ledgerly.com</div>
-            <div class="lc-title">Ledgerly — AP automation built for fast-growing finance teams</div>
-          </div>
-        </div>
-        <div class="rd-actions">
-          <span>💬 124 Comments</span>
-          <span>↗ Share</span>
-          <span>🔖 Save</span>
-        </div>
-        <div class="rd-cta"><a href="https://rebrand.ly/demo-reddit" target="_blank">Check it out →</a></div>
-      </div>
-    </article>
-
-    <!-- =========== EMAIL =========== -->
-    <article class="card em">
-      <div class="em-header">
+    <!-- 1. EMAIL -->
+    <article class="card">
+      <div class="card-label">Email <span class="channel-tag">utm_source=email</span></div>
+      <div class="card-mock">
         <div class="em-from">
           <div class="em-from-avatar">L</div>
-          <div class="em-from-text">
-            <div class="name">Ledgerly Team</div>
-            <div class="addr">hello@ledgerly.com → you</div>
-          </div>
+          <div class="em-from-text"><div class="name">Ledgerly Team</div><div class="addr">hello@ledgerly.com → you</div></div>
           <div class="em-time">9:42 AM</div>
         </div>
-      </div>
-      <div class="em-subject">Pay every vendor in one click ⚡</div>
-      <div class="em-preview">Hi there — see how 3,800+ finance teams cut AP cycle time by 78%...</div>
-      <div class="em-body">
-        <div class="em-hero">
-          <h2>Close your books in days, not weeks.</h2>
-          <p>The AP automation finance teams actually want.</p>
+        <div class="em-subject">Pay every vendor in one click ⚡</div>
+        <div class="em-preview">Hi there — see how 3,800+ finance teams cut AP cycle time by 78%...</div>
+        <div class="em-body">
+          <div class="em-hero"><h2>Close your books in days, not weeks.</h2></div>
+          <div class="em-content">
+            <p>Three things our customers love:</p>
+            <ul><li>AI invoice capture in 5 seconds</li><li>One-click approvals from email</li><li>Two-way QuickBooks sync</li></ul>
+          </div>
         </div>
-        <div class="em-content">
-          <p>Hey there,</p>
-          <p>If your AP cycle still relies on PDFs in inboxes and approval-chase emails, Ledgerly is built for you. Three things our customers love:</p>
-          <ul>
-            <li><strong>AI invoice capture</strong> — vendor, line items, GL coding extracted in 5 seconds</li>
-            <li><strong>One-click approvals</strong> from email, Slack, or mobile</li>
-            <li><strong>Two-way QuickBooks &amp; NetSuite sync</strong> — bills post to your GL automatically</li>
-          </ul>
-          <p>Start free — no credit card, no demo gauntlet. Upgrade when you outgrow it.</p>
-        </div>
-        <div class="em-cta"><a href="https://rebrand.ly/demo-email" target="_blank">See How It Works →</a></div>
-        <div class="em-signoff">— The Ledgerly Team</div>
-        <div class="em-footer-text">You're receiving this because you signed up for Ledgerly updates. Unsubscribe anytime.</div>
       </div>
+      <div class="card-cta em-cta"><a href="https://rebrand.ly/demo-email" target="_blank">See How It Works →</a></div>
+    </article>
+
+    <!-- 2. LINKEDIN AD -->
+    <article class="card">
+      <div class="card-label">LinkedIn Ad <span class="channel-tag">paid_social</span></div>
+      <div class="card-mock li">
+        <div class="li-header">
+          <div class="li-logo">L</div>
+          <div class="li-meta"><div class="company">Ledgerly</div><div class="followers">8,432 followers</div><div class="promoted">Promoted · 🌐</div></div>
+        </div>
+        <div class="li-text"><strong>Finance leaders:</strong> stop letting AP eat the first week of every month. Ledgerly automates invoice capture, approvals, and payments — start free.</div>
+        <div class="li-image">Pay every vendor<br>in one click.</div>
+        <div class="li-actions"><span>👍 Like</span><span>💬 Comment</span><span>↗ Share</span></div>
+      </div>
+      <div class="card-cta li-cta"><a href="https://rebrand.ly/demo-linkedin" target="_blank">Learn more →</a></div>
+    </article>
+
+    <!-- 3. GOOGLE ADS -->
+    <article class="card">
+      <div class="card-label">Google Ads <span class="channel-tag">paid_search</span></div>
+      <div class="card-mock">
+        <div class="gg-bar">
+          <div class="gg-logo"><span class="b">G</span><span class="r">o</span><span class="y">o</span><span class="b">g</span><span class="g">l</span><span class="r">e</span></div>
+          <div class="gg-search">ap automation software</div>
+        </div>
+        <div class="gg-results">
+          <span class="gg-ad-tag">Ad</span>
+          <div class="gg-url">ledgerly.com</div>
+          <div class="gg-title">Ledgerly — AP Automation That Pays for Itself</div>
+          <div class="gg-desc">Pay vendors in one click. AI invoice capture, approval workflows, QBO/NetSuite sync. Free plan available, no credit card.</div>
+          <div class="gg-sitelinks"><div>› Pricing</div><div>› Integrations</div><div>› For Healthcare</div><div>› For SaaS</div></div>
+        </div>
+      </div>
+      <div class="card-cta gg-cta"><a href="https://rebrand.ly/demo-google" target="_blank">Visit Ledgerly →</a></div>
+    </article>
+
+    <!-- 4. FACEBOOK AD -->
+    <article class="card">
+      <div class="card-label">Facebook Ad <span class="channel-tag">paid_social</span></div>
+      <div class="card-mock">
+        <div class="fb-header">
+          <div class="fb-avatar">L</div>
+          <div class="fb-meta"><div class="page">Ledgerly</div><div class="sponsored">Sponsored · 🌐</div></div>
+        </div>
+        <div class="fb-text">3,800+ finance teams already cut AP cycle time by 78%. Try Ledgerly free — no credit card required.</div>
+        <div class="fb-image">Pay every vendor in one click.</div>
+        <div class="fb-link-bar"><div><div class="url">LEDGERLY.COM</div><div class="ttl">AP Automation, Built for Finance Teams</div></div></div>
+        <div class="fb-actions"><span>👍 Like</span><span>💬 Comment</span><span>↗ Share</span></div>
+      </div>
+      <div class="card-cta fb-cta"><a href="https://rebrand.ly/demo-facebook" target="_blank">Learn More →</a></div>
+    </article>
+
+    <!-- 5. TWITTER / X -->
+    <article class="card">
+      <div class="card-label">Twitter / X <span class="channel-tag">organic_social</span></div>
+      <div class="card-mock">
+        <div class="tw-body">
+          <div class="tw-header">
+            <div class="tw-avatar">L</div>
+            <div class="tw-meta"><div class="name">Ledgerly<span class="check">✓</span></div><div class="handle">@ledgerly · 4h</div></div>
+          </div>
+          <div class="tw-text">Spent 12 hours chasing AP approvals last month? Same. That's why we built Ledgerly. Close books in days, not weeks 👇</div>
+          <div class="tw-card">
+            <div class="tw-card-img">Pay every vendor in one click.</div>
+            <div class="tw-card-meta"><div class="host">🔗 ledgerly.com</div><div class="ttl">AP automation for fast finance teams</div></div>
+          </div>
+          <div class="tw-actions"><span>💬 47</span><span>🔁 312</span><span>♡ 1.2K</span><span>📊 34K</span></div>
+        </div>
+      </div>
+      <div class="card-cta tw-cta"><a href="https://rebrand.ly/demo-twitter" target="_blank">Read more →</a></div>
+    </article>
+
+    <!-- 6. NEWSLETTER -->
+    <article class="card">
+      <div class="card-label">Newsletter <span class="channel-tag">utm_source=newsletter</span></div>
+      <div class="card-mock">
+        <div class="nl-banner"><div class="pub">CFO Brief</div><div class="issue">Issue #142 · Tuesday morning</div></div>
+        <div class="nl-body">
+          <div class="nl-author">
+            <div class="nl-author-avatar">JT</div>
+            <div class="nl-author-text"><div class="nm">Jess Torres</div><div class="role">Editor · 18K subscribers</div></div>
+          </div>
+          <div class="nl-headline">The AP tool I wish I'd switched to two years ago</div>
+          <div class="nl-text">
+            <p><em>Sponsored by Ledgerly</em> — Look, I've tried five different AP platforms in my career. Bill.com. Tipalti. Even a homegrown Airtable monster.</p>
+            <p>Ledgerly is the first one I'd actually recommend to a CFO friend. The AI invoice capture is fast enough that I stopped checking it.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card-cta nl-cta"><a href="https://rebrand.ly/demo-newsletter" target="_blank">Read the full review →</a></div>
+    </article>
+
+    <!-- 7. AFFILIATE -->
+    <article class="card">
+      <div class="card-label">Affiliate Blog <span class="channel-tag">utm_source=affiliate</span></div>
+      <div class="card-mock">
+        <div class="af-bar"><span>FinanceStack.io</span><span>5 min read</span></div>
+        <div class="af-body">
+          <div class="af-cat">Roundup · 2026</div>
+          <div class="af-title">Top 10 AP Automation Tools for SMBs in 2026</div>
+          <div class="af-meta">By Marcus Rivera · April 2026</div>
+          <div class="af-disclosure">Disclosure: We earn a commission if you sign up for the tools we recommend. This doesn't change what we recommend.</div>
+          <div class="af-rank">
+            <div class="af-rank-num">1</div>
+            <div class="af-rank-text"><div class="name">Ledgerly</div><div class="pitch">Best for fast-growing finance teams. Free tier, AI invoice capture, native QBO + NetSuite sync.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-cta af-cta"><a href="https://rebrand.ly/demo-affiliate" target="_blank">Visit Ledgerly →</a></div>
+    </article>
+
+    <!-- 8. REFERRAL (SLACK DM) -->
+    <article class="card">
+      <div class="card-label">Referral (DM) <span class="channel-tag">utm_source=partner</span></div>
+      <div class="card-mock">
+        <div class="sl-header"><div class="sl-channel">💬 Direct Message</div><div class="sl-meta">with Sarah Kim</div></div>
+        <div class="sl-body">
+          <div class="sl-msg">
+            <div class="sl-msg-avatar">SK</div>
+            <div class="sl-msg-content">
+              <div class="sl-msg-name">Sarah Kim<span class="time">Today at 11:14 AM</span></div>
+              <div class="sl-msg-text">hey! you mentioned you were drowning in AP last week — we just rolled out Ledgerly and it's been a complete game-changer. Free plan to try, super easy setup:</div>
+              <div class="sl-link-preview"><div class="host">ledgerly.com</div><div class="title">Ledgerly — Pay vendors. Close books.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-cta sl-cta"><a href="https://rebrand.ly/demo-referral" target="_blank">Check it out →</a></div>
+    </article>
+
+    <!-- 9. REDDIT -->
+    <article class="card">
+      <div class="card-label">Reddit <span class="channel-tag">organic_social</span></div>
+      <div class="card-mock rd">
+        <div class="rd-vote">
+          <div class="arrow up">▲</div>
+          <div class="score">847</div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="rd-body">
+          <div class="rd-meta"><span class="sub">r/Accounting</span><span>·</span><span>u/Indie_CFO</span><span>·</span><span>14h</span></div>
+          <div class="rd-title">Switched from Bill.com to Ledgerly — saved 12 hrs/week. AMA</div>
+          <div class="rd-text">
+            <p>Spent the first week of every month chasing AP approvals across 6 departments. Migrated to Ledgerly two months ago — closed January in 3 days flat.</p>
+            <p>QuickBooks sync alone justified the switch. Mods said it was OK to share.</p>
+          </div>
+          <div class="rd-actions"><span>💬 124</span><span>↗ Share</span><span>🔖 Save</span></div>
+        </div>
+      </div>
+      <div class="card-cta rd-cta"><a href="https://rebrand.ly/demo-reddit" target="_blank">Check it out →</a></div>
+    </article>
+
+    <!-- 10. DIRECT -->
+    <article class="card">
+      <div class="card-label">Direct <span class="channel-tag">utm_source=direct</span></div>
+      <div class="card-mock">
+        <div class="dr-bar">
+          <div class="dr-controls"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+          <div class="dr-url"><span class="lock">🔒</span><span class="typed">ledgerly.com</span></div>
+        </div>
+        <div class="dr-body">
+          <div class="dr-fav">Frequently visited</div>
+          <div class="dr-bookmarks">
+            <div class="dr-bookmark"><span class="ic">📧</span>Gmail</div>
+            <div class="dr-bookmark"><span class="ic">📊</span>Sheets</div>
+            <div class="dr-bookmark active"><span class="ic">🏷</span>Ledgerly</div>
+            <div class="dr-bookmark"><span class="ic">💬</span>Slack</div>
+            <div class="dr-bookmark"><span class="ic">📅</span>Calendar</div>
+            <div class="dr-bookmark"><span class="ic">📁</span>Drive</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-cta dr-cta"><a href="https://rebrand.ly/demo-direct" target="_blank">Open Ledgerly →</a></div>
+    </article>
+
+    <!-- 11. INSTAGRAM -->
+    <article class="card">
+      <div class="card-label">Instagram <span class="channel-tag">organic_social</span></div>
+      <div class="card-mock">
+        <div class="ig-header">
+          <div class="ig-avatar"><div class="ig-avatar-inner">L</div></div>
+          <div class="ig-username">ledgerly<span class="verified">✓</span><span class="sub">Sponsored</span></div>
+        </div>
+        <div class="ig-image"><div class="quote">Pay every vendor in one click.</div></div>
+        <div class="ig-actions"><span>♡</span><span>💬</span><span>↗</span><span class="save">🔖</span></div>
+        <div class="ig-likes">12,847 likes</div>
+        <div class="ig-caption"><strong>ledgerly</strong> Tired of chasing approvals every month-end? Ledgerly automates AP from invoice capture to payment ⚡</div>
+      </div>
+      <div class="card-cta ig-cta"><a href="https://rebrand.ly/demo-instagram" target="_blank">Try Ledgerly Free →</a></div>
     </article>
 
   </div>
