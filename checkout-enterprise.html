@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ledgerly Features — End-to-end AP automation</title>
+  <title>Ledgerly — Checkout (Enterprise)</title>
   <link rel="stylesheet" href="style.css?v=7">
   <link rel="stylesheet" href="tour.css">
   <!-- REBRANDLY CONVERSION TRACKING -->
@@ -19,7 +19,7 @@
       </a>
       <ul class="nav-links">
         <li class="has-megamenu">
-          <a href="features.html" class="active">Platform</a>
+          <a href="features.html">Platform</a>
       <div class="nav-megamenu">
         <div class="megamenu-grid">
           <div class="megamenu-col">
@@ -112,42 +112,37 @@
       </div>
         </li>
         <li><a href="pricing.html">Enterprise</a></li>
-        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="pricing.html" class="active">Pricing</a></li>
       </ul>
       <a href="#" class="nav-login">Login</a>
     </div>
   </nav>
 
-  <section class="hero">
-    <div class="container">
-      <h1>The full <span>AP stack</span>, in one platform</h1>
-      <p>Ledgerly handles every step from a vendor sending an invoice to your GL being closed — without the spreadsheets in the middle.</p>
-      <div class="hero-actions">
-        <a href="pricing.html" class="btn btn-primary btn-large">See Pricing</a>
-      </div>
+  <section class="hero" style="padding: 56px 0;">
+    <div class="container" style="max-width: 480px;">
+      <h1 style="font-size: 2rem;">Checkout</h1>
+      <p style="margin-bottom: 0;">You're upgrading to <strong>Enterprise</strong> — <strong>$299/month</strong>.<br><span style="font-size: 0.9rem; color: var(--text-light);">Unlimited everything, SSO, SOC 2, dedicated CSM</span></p>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-header">
-        <h2>Pick a feature to dive in</h2>
-        <p>Or see the whole platform on a 20-minute walkthrough call.</p>
-      </div>
-      <div class="feature-grid">
-        <a href="feature-invoice-capture.html" class="feature-card" style="text-decoration:none;color:inherit;display:block;"><div class="feature-icon">&#128196;</div><h3>Invoice Capture</h3><p>AI extracts vendor, line items, GL coding, and due dates from any invoice format. Email-in, drag-drop, or vendor portal.</p></a>
-        <a href="feature-approvals.html" class="feature-card" style="text-decoration:none;color:inherit;display:block;"><div class="feature-icon">&#9989;</div><h3>Approval Workflows</h3><p>Route by amount thresholds, department, GL code, or vendor. One-click approve from email, Slack, or mobile.</p></a>
-        <a href="feature-payments.html" class="feature-card" style="text-decoration:none;color:inherit;display:block;"><div class="feature-icon">&#128179;</div><h3>Payments</h3><p>ACH, check, virtual card, wire — all reconciled automatically. Earn rebates on every card-paid invoice.</p></a>
-        <a href="feature-integrations.html" class="feature-card" style="text-decoration:none;color:inherit;display:block;"><div class="feature-icon">&#128260;</div><h3>Integrations</h3><p>Native two-way sync with QuickBooks Online, Xero, NetSuite, Sage Intacct, plus Slack, email, and SSO providers.</p></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="cta-banner">
-    <div class="container">
-      <h2>Ready to close your books faster?</h2>
-      <p>See plans and pricing — start with the tier that matches your team.</p>
-      <a href="pricing.html" class="btn btn-primary btn-large">See Pricing</a>
+  <section class="section" style="padding-top: 0;">
+    <div class="container" style="max-width: 480px;">
+      <form id="checkout-form" data-plan="enterprise" style="display: grid; gap: 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 28px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <input type="text" name="firstName" placeholder="First name" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+          <input type="text" name="lastName" placeholder="Last name" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+        </div>
+        <input type="text" name="card" placeholder="Card number" required autocomplete="off" style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <input type="text" name="expiry" placeholder="MM / YY" style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+          <input type="text" name="cvc" placeholder="CVC" style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+        </div>
+        <p style="font-size: 0.82rem; color: var(--text-light); margin: 4px 0; padding: 10px 12px; background: var(--primary-light); border-radius: 6px; line-height: 1.4;">
+          <strong>Demo site:</strong> enter <code style="background: rgba(0,0,0,0.07); padding: 1px 6px; border-radius: 3px; font-weight: 700;">12345</code> in the card field. No real charge will be made.
+        </p>
+        <button type="submit" class="btn btn-primary btn-large" style="margin-top: 6px;">Buy Now — $299/month</button>
+        <p style="font-size: 0.78rem; color: var(--text-light); text-align: center; margin-top: 4px;">By clicking Buy Now you agree to Ledgerly's Terms.</p>
+      </form>
     </div>
   </section>
 
