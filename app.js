@@ -126,11 +126,9 @@
 
       track("talk_to_sales", null, null, {
         source: contactSalesForm.getAttribute("data-source") || "contact_page",
-        firstName: data.get("firstName"),
-        lastName: data.get("lastName"),
+        name: data.get("name"),
         email: data.get("email"),
         company: data.get("company"),
-        employees: data.get("employees"),
       });
 
       replaceFormWithConfirmation(
