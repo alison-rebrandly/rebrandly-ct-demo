@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ledgerly — Get Started Free</title>
-  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="stylesheet" href="style.css?v=8">
   <link rel="stylesheet" href="tour.css">
   <!-- REBRANDLY CONVERSION TRACKING -->
   <script src="https://track.rebrandly.click/sdk/latest/rbly.min.js" data-api-key="7c4a179930844ce9b340dcadcaa54e9d"></script>
@@ -118,16 +118,25 @@
     </div>
   </nav>
 
-  <section class="hero">
+  <section class="hero" style="padding: 56px 0;">
     <div class="container" style="max-width: 480px;">
-      <h1>Start free</h1>
-      <p>One user, 10 invoices a month, no credit card. Upgrade when you outgrow it.</p>
-      <form id="signup-form" style="margin-top: 1.5rem; display: grid; gap: 0.75rem; text-align: left;">
-        <input type="email" id="email" name="email" placeholder="Work email" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
-        <input type="text" id="company" name="company" placeholder="Company" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
-        <button type="submit" class="btn btn-primary btn-large">Create my Ledgerly account</button>
+      <h1 style="font-size: 2rem;">Start free</h1>
+      <p style="margin-bottom: 0;">You're starting with the <strong>Free</strong> plan — <strong>$0/month</strong>.<br><span style="font-size: 0.9rem; color: var(--text-light);">1 user, 10 invoices/mo. No credit card required.</span></p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0;">
+    <div class="container" style="max-width: 480px;">
+      <form id="free-signup-form" style="display: grid; gap: 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 28px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <input type="text" name="firstName" placeholder="First name" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+          <input type="text" name="lastName" placeholder="Last name" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+        </div>
+        <input type="email" name="email" placeholder="Work email" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+        <input type="text" name="company" placeholder="Company name" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+        <button type="submit" class="btn btn-primary btn-large" style="margin-top: 6px;">Create my Ledgerly account</button>
+        <p style="font-size: 0.78rem; color: var(--text-light); text-align: center; margin-top: 4px;">No credit card. Upgrade when you outgrow Free.</p>
       </form>
-      <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-light);">Already have an account? <a href="#">Sign in</a>.</p>
     </div>
   </section>
 

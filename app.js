@@ -1,13 +1,22 @@
 /**
  * Ledgerly Demo Site - Rebrandly Conversion Tracking Events
  *
- * Events tracked (only 2 — everything else is silent):
- * 1. "purchase"        — fires on checkout form submit (Starter $19, Professional $79, Enterprise $299).
- *                        Fires from the per-plan checkout page (checkout-starter.html etc.), NOT the pricing page.
- * 2. "talk_to_sales"   — fires on Talk to Sales form submit (pricing page).
+ * Three conversion events fire from this site:
  *
- * Page views are tracked automatically by the Rebrandly SDK snippet.
- * Free plan signup, nav clicks, and other CTAs are NOT tracked by design.
+ * 1. "purchase"        — fires on checkout form submit on:
+ *                          - checkout-starter.html       ($19 revenue)
+ *                          - checkout-professional.html  ($79 revenue)
+ *                        Carries plan + first/last name as properties.
+ *
+ * 2. "signup"          — fires on free signup form submit on signup.html (no revenue).
+ *                        Carries first/last name + email + company.
+ *
+ * 3. "talk_to_sales"   — fires on sales form submit on:
+ *                          - pricing.html (#talk-to-sales-form, source: pricing_footer)
+ *                          - contact-enterprise.html (#contact-sales-form, source: enterprise_cta)
+ *
+ * Page views fire automatically from the Rebrandly SDK on every page.
+ * Nothing else is tracked — nav clicks, CTA clicks, etc. are silent.
  */
 
 (function () {
@@ -30,7 +39,16 @@
     console.log("[Rebrandly CT]", eventName, { revenue: revenue, currency: currency, properties: properties });
   }
 
-  // Checkout form (one of checkout-starter.html, checkout-professional.html, checkout-enterprise.html)
+  function replaceFormWithConfirmation(form, headline, subtext) {
+    form.innerHTML = '<div style="padding: 2rem; text-align: center;">' +
+      '<div style="font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--success);">✓</div>' +
+      '<h2 style="margin-bottom: 0.5rem;">' + headline + '</h2>' +
+      '<p style="color: var(--text-light); margin-bottom: 1.5rem;">' + subtext + '</p>' +
+      '<a href="index.html" class="btn btn-secondary">Back to home</a>' +
+      '</div>';
+  }
+
+  // 1. Checkout form (Starter or Professional) → purchase
   var checkoutForm = document.getElementById("checkout-form");
   if (checkoutForm) {
     checkoutForm.addEventListener("submit", function (e) {
@@ -46,11 +64,39 @@
         lastName: data.get("lastName"),
       });
 
-      checkoutForm.innerHTML = '<div style="padding: 2rem; text-align: center;"><div style="font-size: 2.5rem; margin-bottom: 0.5rem;">✓</div><h2 style="margin-bottom: 0.5rem;">Payment confirmed</h2><p style="color: var(--text-light); margin-bottom: 1.5rem;">Welcome to Ledgerly ' + plan.charAt(0).toUpperCase() + plan.slice(1) + '. Setup instructions are on their way to your inbox.</p><a href="index.html" class="btn btn-secondary">Back to home</a></div>';
+      var planTitle = plan.charAt(0).toUpperCase() + plan.slice(1);
+      replaceFormWithConfirmation(
+        checkoutForm,
+        "Payment confirmed",
+        "Welcome to Ledgerly " + planTitle + ". Setup instructions are on their way to your inbox."
+      );
     });
   }
 
-  // Talk to Sales form (pricing.html)
+  // 2. Free signup form → signup
+  var freeSignupForm = document.getElementById("free-signup-form");
+  if (freeSignupForm) {
+    freeSignupForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var data = new FormData(freeSignupForm);
+
+      track("signup", null, null, {
+        plan: "free",
+        firstName: data.get("firstName"),
+        lastName: data.get("lastName"),
+        email: data.get("email"),
+        company: data.get("company"),
+      });
+
+      replaceFormWithConfirmation(
+        freeSignupForm,
+        "You're in",
+        "Welcome to Ledgerly Free. Check your inbox for setup instructions."
+      );
+    });
+  }
+
+  // 3a. Talk to Sales (pricing page footer) → talk_to_sales
   var salesForm = document.getElementById("talk-to-sales-form");
   if (salesForm) {
     salesForm.addEventListener("submit", function (e) {
@@ -58,12 +104,37 @@
       var data = new FormData(salesForm);
 
       track("talk_to_sales", null, null, {
+        source: "pricing_footer",
         name: data.get("name"),
         email: data.get("email"),
         company: data.get("company"),
       });
 
       salesForm.innerHTML = '<div style="padding: 1.5rem; text-align: center; background: rgba(255,255,255,0.15); border-radius: 8px;"><strong>✓ Thanks — sales will be in touch.</strong></div>';
+    });
+  }
+
+  // 3b. Contact Sales (Enterprise CTA page) → talk_to_sales
+  var contactSalesForm = document.getElementById("contact-sales-form");
+  if (contactSalesForm) {
+    contactSalesForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var data = new FormData(contactSalesForm);
+
+      track("talk_to_sales", null, null, {
+        source: contactSalesForm.getAttribute("data-source") || "contact_page",
+        firstName: data.get("firstName"),
+        lastName: data.get("lastName"),
+        email: data.get("email"),
+        company: data.get("company"),
+        employees: data.get("employees"),
+      });
+
+      replaceFormWithConfirmation(
+        contactSalesForm,
+        "Thanks — we'll be in touch",
+        "An account exec will reach out within one business day."
+      );
     });
   }
 })();

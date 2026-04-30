@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ledgerly — Checkout (Enterprise)</title>
-  <link rel="stylesheet" href="style.css?v=7">
+  <title>Ledgerly — Talk to Sales (Enterprise)</title>
+  <link rel="stylesheet" href="style.css?v=8">
   <link rel="stylesheet" href="tour.css">
   <!-- REBRANDLY CONVERSION TRACKING -->
   <script src="https://track.rebrandly.click/sdk/latest/rbly.min.js" data-api-key="7c4a179930844ce9b340dcadcaa54e9d"></script>
@@ -119,29 +119,24 @@
   </nav>
 
   <section class="hero" style="padding: 56px 0;">
-    <div class="container" style="max-width: 480px;">
-      <h1 style="font-size: 2rem;">Checkout</h1>
-      <p style="margin-bottom: 0;">You're upgrading to <strong>Enterprise</strong> — <strong>$299/month</strong>.<br><span style="font-size: 0.9rem; color: var(--text-light);">Unlimited everything, SSO, SOC 2, dedicated CSM</span></p>
+    <div class="container" style="max-width: 520px;">
+      <h1 style="font-size: 2rem;">Let's talk Enterprise</h1>
+      <p style="margin-bottom: 0;">For multi-entity organizations with audit, SSO, and compliance needs. Custom pricing starts at <strong>$299/month</strong>.<br><span style="font-size: 0.9rem; color: var(--text-light);">A Ledgerly account exec will reach out within one business day.</span></p>
     </div>
   </section>
 
   <section class="section" style="padding-top: 0;">
-    <div class="container" style="max-width: 480px;">
-      <form id="checkout-form" data-plan="enterprise" style="display: grid; gap: 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 28px;">
+    <div class="container" style="max-width: 520px;">
+      <form id="contact-sales-form" data-source="enterprise_cta" style="display: grid; gap: 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 28px;">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
           <input type="text" name="firstName" placeholder="First name" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
           <input type="text" name="lastName" placeholder="Last name" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
         </div>
-        <input type="text" name="card" placeholder="Card number" required autocomplete="off" style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-          <input type="text" name="expiry" placeholder="MM / YY" style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
-          <input type="text" name="cvc" placeholder="CVC" style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
-        </div>
-        <p style="font-size: 0.82rem; color: var(--text-light); margin: 4px 0; padding: 10px 12px; background: var(--primary-light); border-radius: 6px; line-height: 1.4;">
-          <strong>Demo site:</strong> enter <code style="background: rgba(0,0,0,0.07); padding: 1px 6px; border-radius: 3px; font-weight: 700;">12345</code> in the card field. No real charge will be made.
-        </p>
-        <button type="submit" class="btn btn-primary btn-large" style="margin-top: 6px;">Buy Now — $299/month</button>
-        <p style="font-size: 0.78rem; color: var(--text-light); text-align: center; margin-top: 4px;">By clicking Buy Now you agree to Ledgerly's Terms.</p>
+        <input type="email" name="email" placeholder="Work email" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+        <input type="text" name="company" placeholder="Company" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+        <input type="text" name="employees" placeholder="Number of employees (optional)" style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+        <textarea name="message" placeholder="What are you trying to do?" rows="3" style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem; font-family: inherit;"></textarea>
+        <button type="submit" class="btn btn-primary btn-large" style="margin-top: 6px;">Talk to Sales</button>
       </form>
     </div>
   </section>
