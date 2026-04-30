@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How customers find Ledgerly</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f3f4f6;
+      color: #111827;
+      line-height: 1.5;
+      padding: 32px 16px 48px;
+    }
+    .page-header {
+      text-align: center;
+      margin-bottom: 36px;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .page-header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .page-header p {
+      color: #4b5563;
+      font-size: 1rem;
+    }
+    .channels {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      max-width: 1280px;
+      margin: 0 auto;
+      align-items: start;
+    }
+    @media (max-width: 980px) { .channels { grid-template-columns: 1fr; max-width: 480px; } }
+    .card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.05); }
+
+    /* === INSTAGRAM === */
+    .ig { font-family: -apple-system, sans-serif; }
+    .ig-header { display: flex; align-items: center; padding: 12px 14px; border-bottom: 1px solid #efefef; }
+    .ig-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      padding: 2px;
+      flex-shrink: 0;
+    }
+    .ig-avatar-inner {
+      width: 100%; height: 100%; border-radius: 50%;
+      background: #fff; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; color: #1e3a8a; font-size: 0.85rem;
+    }
+    .ig-username { margin-left: 12px; font-size: 0.9rem; font-weight: 600; }
+    .ig-username .verified { color: #0095f6; margin-left: 2px; }
+    .ig-username .location { display: block; font-size: 0.72rem; font-weight: 400; color: #8e8e8e; }
+    .ig-more { margin-left: auto; color: #262626; font-size: 1.4rem; line-height: 1; padding: 4px; }
+    .ig-image {
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #06b6d4 100%);
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; padding: 24px; text-align: center;
+    }
+    .ig-image .quote {
+      font-size: 1.4rem; font-weight: 700; line-height: 1.25;
+      max-width: 280px;
+    }
+    .ig-image .product-tag {
+      position: absolute; bottom: 14px; left: 14px;
+      background: rgba(255,255,255,0.95); color: #1e3a8a;
+      font-size: 0.72rem; font-weight: 700;
+      padding: 5px 10px; border-radius: 4px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .ig-actions { display: flex; padding: 8px 14px; gap: 14px; font-size: 1.4rem; color: #262626; }
+    .ig-actions .save { margin-left: auto; }
+    .ig-likes { padding: 0 14px 6px; font-size: 0.85rem; font-weight: 600; }
+    .ig-caption { padding: 0 14px 6px; font-size: 0.85rem; }
+    .ig-caption strong { font-weight: 600; margin-right: 6px; }
+    .ig-comments { padding: 0 14px 4px; color: #8e8e8e; font-size: 0.8rem; }
+    .ig-time { padding: 0 14px 12px; color: #8e8e8e; font-size: 0.7rem; text-transform: uppercase; }
+    .ig-cta { padding: 0 14px 16px; }
+    .ig-cta a {
+      display: block; width: 100%;
+      background: linear-gradient(135deg, #f09433, #dc2743 50%, #bc1888);
+      color: #fff; text-decoration: none; text-align: center;
+      padding: 11px; border-radius: 8px; font-weight: 600; font-size: 0.9rem;
+    }
+
+    /* === REDDIT === */
+    .rd { display: flex; }
+    .rd-vote {
+      width: 40px; flex-shrink: 0; background: #f8f9fa;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 8px 0; border-radius: 12px 0 0 12px;
+    }
+    .rd-vote .arrow { font-size: 1.1rem; color: #878a8c; cursor: pointer; line-height: 1; padding: 4px; }
+    .rd-vote .arrow.up { color: #ff4500; }
+    .rd-vote .score { font-size: 0.78rem; font-weight: 700; color: #1c1c1c; padding: 2px 0; }
+    .rd-body { padding: 12px 14px 14px; flex: 1; min-width: 0; }
+    .rd-meta { display: flex; align-items: center; gap: 4px; font-size: 0.72rem; color: #787c7e; flex-wrap: wrap; margin-bottom: 6px; }
+    .rd-meta .sub { color: #1c1c1c; font-weight: 700; }
+    .rd-meta .dot { padding: 0 2px; }
+    .rd-title { font-size: 1.05rem; font-weight: 600; color: #222222; margin-bottom: 8px; line-height: 1.3; }
+    .rd-text { font-size: 0.85rem; color: #1c1c1c; margin-bottom: 12px; }
+    .rd-text p { margin-bottom: 8px; }
+    .rd-text p:last-child { margin-bottom: 0; }
+    .rd-link-card {
+      border: 1px solid #ccc; border-radius: 6px; padding: 10px 12px;
+      display: flex; gap: 10px; align-items: center; margin-bottom: 12px;
+      background: #fff;
+    }
+    .rd-link-card .lc-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: #1e3a8a; color: #fff;
+      border-radius: 6px; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.95rem;
+    }
+    .rd-link-card .lc-meta { flex: 1; min-width: 0; }
+    .rd-link-card .lc-host { font-size: 0.7rem; color: #787c7e; text-transform: uppercase; }
+    .rd-link-card .lc-title { font-size: 0.82rem; font-weight: 600; color: #1c1c1c; }
+    .rd-actions { display: flex; gap: 14px; font-size: 0.78rem; color: #878a8c; font-weight: 700; padding-top: 6px; border-top: 1px solid #f0f0f0; }
+    .rd-actions span { padding: 4px 0; }
+    .rd-cta { padding-top: 14px; }
+    .rd-cta a {
+      display: block; background: #ff4500; color: #fff; text-decoration: none;
+      text-align: center; padding: 10px; border-radius: 999px;
+      font-weight: 700; font-size: 0.85rem;
+    }
+
+    /* === EMAIL === */
+    .em-header { padding: 12px 16px; border-bottom: 1px solid #e5e7eb; background: #fafafa; }
+    .em-from { display: flex; align-items: center; gap: 10px; }
+    .em-from-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #1e3a8a; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem; flex-shrink: 0;
+    }
+    .em-from-text { flex: 1; min-width: 0; font-size: 0.82rem; }
+    .em-from-text .name { font-weight: 600; color: #111827; }
+    .em-from-text .addr { color: #6b7280; font-size: 0.74rem; }
+    .em-time { font-size: 0.72rem; color: #6b7280; }
+    .em-subject { padding: 12px 16px 6px; font-size: 1rem; font-weight: 600; color: #111827; }
+    .em-preview { padding: 0 16px 14px; font-size: 0.82rem; color: #6b7280; }
+    .em-body { padding: 22px 24px 24px; background: #fff; }
+    .em-hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      color: #fff; padding: 28px 24px; border-radius: 8px;
+      text-align: center; margin-bottom: 20px;
+    }
+    .em-hero h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; line-height: 1.2; }
+    .em-hero p { font-size: 0.85rem; opacity: 0.9; }
+    .em-content { font-size: 0.9rem; color: #1f2937; }
+    .em-content p { margin-bottom: 12px; }
+    .em-content ul { padding-left: 20px; margin-bottom: 14px; }
+    .em-content li { margin-bottom: 4px; font-size: 0.88rem; }
+    .em-cta { text-align: center; padding: 8px 0 16px; }
+    .em-cta a {
+      display: inline-block; background: #1e3a8a; color: #fff;
+      text-decoration: none; padding: 12px 32px; border-radius: 6px;
+      font-weight: 600; font-size: 0.9rem;
+    }
+    .em-signoff { font-size: 0.85rem; color: #4b5563; margin-top: 10px; }
+    .em-footer-text { font-size: 0.7rem; color: #9ca3af; text-align: center; padding-top: 14px; border-top: 1px solid #e5e7eb; margin-top: 18px; }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <h1>How customers find Ledgerly</h1>
+    <p>Click any post below — each click is tracked through Rebrandly and attributed to its channel. After you land on Ledgerly, sign up, buy a plan, or talk to sales — and watch the conversion appear in real time.</p>
+  </header>
+
+  <div class="channels">
+
+    <!-- =========== INSTAGRAM =========== -->
+    <article class="card ig">
+      <div class="ig-header">
+        <div class="ig-avatar"><div class="ig-avatar-inner">L</div></div>
+        <div class="ig-username">
+          ledgerly<span class="verified">✓</span>
+          <span class="location">Sponsored</span>
+        </div>
+        <div class="ig-more">⋯</div>
+      </div>
+      <div class="ig-image">
+        <div class="quote">Pay every vendor in one click.</div>
+        <div class="product-tag">🏷 Ledgerly · From $19/mo</div>
+      </div>
+      <div class="ig-actions">
+        <span>♡</span><span>💬</span><span>↗</span><span class="save">🔖</span>
+      </div>
+      <div class="ig-likes">12,847 likes</div>
+      <div class="ig-caption">
+        <strong>ledgerly</strong>Tired of chasing approvals every month-end? Ledgerly automates AP from invoice capture to payment — close your books in days, not weeks. ⚡<br><br>👉 Try free, no credit card.
+      </div>
+      <div class="ig-comments">View all 234 comments</div>
+      <div class="ig-time">2 hours ago</div>
+      <div class="ig-cta"><a href="https://rebrand.ly/demo-instagram" target="_blank">Try Ledgerly Free →</a></div>
+    </article>
+
+    <!-- =========== REDDIT =========== -->
+    <article class="card rd">
+      <div class="rd-vote">
+        <div class="arrow up">▲</div>
+        <div class="score">847</div>
+        <div class="arrow">▼</div>
+      </div>
+      <div class="rd-body">
+        <div class="rd-meta">
+          <span class="sub">r/Accounting</span>
+          <span class="dot">·</span>
+          <span>Posted by u/Indie_CFO</span>
+          <span class="dot">·</span>
+          <span>14h</span>
+        </div>
+        <div class="rd-title">Switched our 50-person company from Bill.com to Ledgerly — saved 12 hrs/week. AMA</div>
+        <div class="rd-text">
+          <p>We were spending the first week of every month chasing AP approvals across 6 departments. Migrated to Ledgerly two months ago and just closed January in 3 days flat.</p>
+          <p>The QuickBooks sync alone justified the switch. AI invoice capture is genuinely fast — like, 5 seconds per bill fast.</p>
+          <p>Anyway, mods said it was OK to share. Link below if you want to check it out:</p>
+        </div>
+        <div class="rd-link-card">
+          <div class="lc-icon">L</div>
+          <div class="lc-meta">
+            <div class="lc-host">ledgerly.com</div>
+            <div class="lc-title">Ledgerly — AP automation built for fast-growing finance teams</div>
+          </div>
+        </div>
+        <div class="rd-actions">
+          <span>💬 124 Comments</span>
+          <span>↗ Share</span>
+          <span>🔖 Save</span>
+        </div>
+        <div class="rd-cta"><a href="https://rebrand.ly/demo-reddit" target="_blank">Check it out →</a></div>
+      </div>
+    </article>
+
+    <!-- =========== EMAIL =========== -->
+    <article class="card em">
+      <div class="em-header">
+        <div class="em-from">
+          <div class="em-from-avatar">L</div>
+          <div class="em-from-text">
+            <div class="name">Ledgerly Team</div>
+            <div class="addr">hello@ledgerly.com → you</div>
+          </div>
+          <div class="em-time">9:42 AM</div>
+        </div>
+      </div>
+      <div class="em-subject">Pay every vendor in one click ⚡</div>
+      <div class="em-preview">Hi there — see how 3,800+ finance teams cut AP cycle time by 78%...</div>
+      <div class="em-body">
+        <div class="em-hero">
+          <h2>Close your books in days, not weeks.</h2>
+          <p>The AP automation finance teams actually want.</p>
+        </div>
+        <div class="em-content">
+          <p>Hey there,</p>
+          <p>If your AP cycle still relies on PDFs in inboxes and approval-chase emails, Ledgerly is built for you. Three things our customers love:</p>
+          <ul>
+            <li><strong>AI invoice capture</strong> — vendor, line items, GL coding extracted in 5 seconds</li>
+            <li><strong>One-click approvals</strong> from email, Slack, or mobile</li>
+            <li><strong>Two-way QuickBooks &amp; NetSuite sync</strong> — bills post to your GL automatically</li>
+          </ul>
+          <p>Start free — no credit card, no demo gauntlet. Upgrade when you outgrow it.</p>
+        </div>
+        <div class="em-cta"><a href="https://rebrand.ly/demo-email" target="_blank">See How It Works →</a></div>
+        <div class="em-signoff">— The Ledgerly Team</div>
+        <div class="em-footer-text">You're receiving this because you signed up for Ledgerly updates. Unsubscribe anytime.</div>
+      </div>
+    </article>
+
+  </div>
+
+</body>
+</html>
