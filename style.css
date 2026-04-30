@@ -79,6 +79,8 @@ img {
   align-items: center;
   gap: 32px;
   list-style: none;
+  flex: 1;
+  justify-content: center;
 }
 
 .nav-links a {
@@ -95,6 +97,21 @@ img {
 
 .nav-links .btn {
   color: #fff;
+}
+
+.nav-login {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s;
+  padding: 8px 18px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.nav-login:hover {
+  color: var(--primary);
+  border-color: var(--primary);
 }
 
 /* === Buttons === */
@@ -301,12 +318,13 @@ img {
   transform: translateX(-50%);
   background: var(--primary);
   color: #fff;
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 4px 16px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 14px;
   border-radius: 20px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
 }
 
 .pricing-card h3 {
