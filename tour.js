@@ -374,6 +374,8 @@
     bar.innerHTML = html;
   }
 
+  var PAGE_ORDER = ["index.html", "pricing.html", "signup.html", "thank-you.html"];
+
   window._tour = {
     start: function (step) { startTour(step); },
     end: function () { endTour(); },
@@ -385,6 +387,16 @@
     prev: function () {
       if (currentStepIndex > 0) {
         showStep(currentStepIndex - 1);
+        return;
+      }
+      // At first step of current page — jump to last step of previous page.
+      var pageKey = getPageKey();
+      var pageIdx = PAGE_ORDER.indexOf(pageKey);
+      if (pageIdx > 0) {
+        var prevPage = PAGE_ORDER[pageIdx - 1];
+        var prevSteps = STEPS[prevPage] || [];
+        var lastStep = Math.max(0, prevSteps.length - 1);
+        window.location.href = prevPage + "?tour=1&step=" + lastStep;
       }
     },
     goPage: function (url) {
