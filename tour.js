@@ -187,6 +187,9 @@
     // Multi-target step: highlight several elements at once with floating labels.
     if (step.targets && step.targets.length) {
       spotlight.style.display = "none";
+
+      // First pass: highlight all elements and create labels positioned below.
+      var labels = [];
       step.targets.forEach(function (t) {
         var el = document.querySelector(t.selector);
         if (!el) return;
@@ -196,9 +199,37 @@
         label.textContent = t.label;
         document.body.appendChild(label);
         var rect = el.getBoundingClientRect();
-        label.style.top = (rect.top + window.scrollY - 28) + "px";
-        label.style.left = (rect.left + window.scrollX) + "px";
+        var top = rect.bottom + window.scrollY + 8;
+        var left = rect.left + window.scrollX;
+        label.style.top = top + "px";
+        label.style.left = left + "px";
+        labels.push({ el: label, top: top, left: left });
       });
+
+      // Second pass: bump labels down if they overlap with already-placed ones.
+      var placed = [];
+      labels.forEach(function (lb) {
+        var lr = lb.el.getBoundingClientRect();
+        var w = lr.width;
+        var h = lr.height;
+        var bumped = true;
+        while (bumped) {
+          bumped = false;
+          for (var i = 0; i < placed.length; i++) {
+            var p = placed[i];
+            var overlapX = lb.left < p.left + p.w && lb.left + w > p.left;
+            var overlapY = lb.top < p.top + p.h + 6 && lb.top + h + 6 > p.top;
+            if (overlapX && overlapY) {
+              lb.top = p.top + p.h + 6;
+              lb.el.style.top = lb.top + "px";
+              bumped = true;
+              break;
+            }
+          }
+        }
+        placed.push({ top: lb.top, left: lb.left, w: w, h: h });
+      });
+
       // Scroll to the first target so the user can see at least one highlight.
       var firstEl = document.querySelector(step.targets[0].selector);
       if (firstEl) firstEl.scrollIntoView({ behavior: "smooth", block: "center" });
