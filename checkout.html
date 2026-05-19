@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ledgerly for Manufacturing</title>
+  <title>Ledgerly — Checkout</title>
   <link rel="stylesheet" href="style.css?v=12">
   <link rel="stylesheet" href="tour.css?v=4">
   <!-- REBRANDLY CONVERSION TRACKING -->
@@ -59,7 +59,7 @@
       </div>
         </li>
         <li class="has-megamenu">
-          <a href="#" class="active">Solutions</a>
+          <a href="#">Solutions</a>
       <div class="nav-megamenu">
         <div class="megamenu-grid cols-2">
           <div class="megamenu-col">
@@ -95,33 +95,75 @@
     </div>
   </nav>
 
-  <section class="hero">
-    <div class="container">
-      <h1>AP That Keeps the Line Running</h1>
-      <p>PO matching, multi-currency, and supplier portals built for makers of physical things.</p>
-      <div class="hero-actions">
-        <a href="pricing.html" class="btn btn-primary btn-large">See Pricing</a>
-      </div>
+  <section class="hero" style="padding: 48px 0 24px;">
+    <div class="container" style="max-width: 920px;">
+      <h1 style="font-size: 1.9rem; margin-bottom: 6px;">Start your Ledgerly subscription</h1>
+      <p style="margin-bottom: 0; color: var(--text-light);">14-day free trial · Cancel anytime · Card billed only after trial ends</p>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="feature-grid">
-        <div class="feature-card"><h3>3-way matching</h3><p>Auto-match invoice, PO, and receipt. Variances flagged before payment release.</p></div>
-        <div class="feature-card"><h3>Multi-currency &amp; FX</h3><p>Pay overseas suppliers in their currency. Live FX, no markup, hedge-friendly reporting.</p></div>
-        <div class="feature-card"><h3>Supplier scorecards</h3><p>Track on-time payment, dispute rates, and discount capture per supplier.</p></div>
-        <div class="feature-card"><h3>ERP integrations</h3><p>NetSuite, SAP Business One, Sage Intacct, and Microsoft Dynamics — bidirectional and certified.</p></div>
-        <div class="feature-card"><h3>Capital project tracking</h3><p>Capitalize and depreciate equipment purchases automatically against your fixed-asset schedule.</p></div>
-      </div>
-    </div>
-  </section>
+  <section class="section" style="padding-top: 0; padding-bottom: 64px;">
+    <div class="container" style="max-width: 920px;">
+      <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items: start;">
 
-  <section class="cta-banner">
-    <div class="container">
-      <h2>Ready to close your books faster?</h2>
-      <p>See plans and pricing — start with the tier that matches your team.</p>
-      <a href="pricing.html" class="btn btn-primary btn-large">See Pricing</a>
+        <!-- LEFT: Payment form -->
+        <form id="checkout-form" style="display: grid; gap: 18px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 28px;">
+
+          <div>
+            <h3 style="margin: 0 0 14px; font-size: 1.05rem;">Account</h3>
+            <div style="display: grid; gap: 12px;">
+              <input type="email" name="email" placeholder="Work email" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+              <input type="text" name="company" placeholder="Company name" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+            </div>
+          </div>
+
+          <div>
+            <h3 style="margin: 0 0 14px; font-size: 1.05rem;">Payment</h3>
+            <div style="display: grid; gap: 12px;">
+              <input type="text" name="cardName" placeholder="Name on card" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+              <div style="position: relative;">
+                <input type="text" name="cardNumber" placeholder="1234 5678 9012 3456" required style="padding: 0.75rem 0.75rem 0.75rem 2.4rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem; width: 100%; box-sizing: border-box;">
+                <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 1.1rem;">💳</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <input type="text" name="expiry" placeholder="MM / YY" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+                <input type="text" name="cvc" placeholder="CVC" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+              </div>
+              <input type="text" name="billingZip" placeholder="Billing ZIP / postcode" required style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd; font-size: 1rem;">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-large" style="margin-top: 6px;">Start 14-day trial · $79/mo after</button>
+          <p style="font-size: 0.78rem; color: var(--text-light); text-align: center; margin: 0;">🔒 Secure checkout · Encrypted via 256-bit TLS</p>
+        </form>
+
+        <!-- RIGHT: Order summary -->
+        <aside id="order-summary" style="background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 24px; position: sticky; top: 24px;">
+          <h3 style="margin: 0 0 14px; font-size: 1.05rem;">Order summary</h3>
+
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 14px; border-bottom: 1px solid var(--border);">
+            <div>
+              <div style="font-weight: 600;">Professional plan</div>
+              <div style="font-size: 0.85rem; color: var(--text-light); margin-top: 2px;">Up to 10 users · 500 invoices/mo</div>
+            </div>
+            <div style="font-weight: 700;">$79<span style="font-size: 0.78rem; font-weight: 500; color: var(--text-light);">/mo</span></div>
+          </div>
+
+          <div style="display: grid; gap: 8px; padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 0.92rem;">
+            <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-light);">Subtotal</span><span>$79.00</span></div>
+            <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-light);">14-day trial credit</span><span style="color: #16a34a;">−$79.00</span></div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 14px; font-weight: 700; font-size: 1.05rem;">
+            <span>Due today</span><span>$0.00</span>
+          </div>
+
+          <div style="margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--border); font-size: 0.82rem; color: var(--text-light);">
+            After your 14-day trial: <strong style="color: var(--text);">$79.00 / month</strong>, billed monthly. Cancel any time from billing settings.
+          </div>
+        </aside>
+
+      </div>
     </div>
   </section>
 

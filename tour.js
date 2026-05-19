@@ -1,12 +1,12 @@
 /**
  * Guided Product Tour for Rebrandly Conversion Tracking — Ledgerly Demo
  *
- * Simplified 5-step flow:
- *   1. Install snippet (homepage)
- *   2. Page view auto-tracked (homepage)
- *   3. Custom events catalog (pricing)
- *   4. Form fill = custom event (signup)
- *   5. Revenue captured (thank-you)
+ * 5-step flow:
+ *   1. Install snippet (home)
+ *   2. Page views auto-tracked, no code (home)
+ *   3. Track custom events (home, multi-highlight)
+ *   4. Conversion + revenue on checkout
+ *   5. Revenue attributed back to the link (thank-you)
  */
 
 (function () {
@@ -27,7 +27,7 @@
       {
         target: ".hero",
         title: "2. Page views tracked automatically",
-        body: "When a visitor lands here from a Rebrandly link, the page view gets recorded. No extra code.",
+        body: "When a visitor lands here from a Rebrandly link, the page view gets recorded. <strong>Zero code required</strong> — the snippet handles it.",
         position: "bottom",
         stepLabel: "Install Snippet",
       },
@@ -41,7 +41,7 @@
         ],
         title: "3. Track any custom event",
         body:
-          "Beyond page views, fire a custom event for anything that matters — pick what counts as a conversion." +
+          "Page views are automatic. For anything beyond that — clicks, downloads, sign-ups — fire a custom event. <strong>A short code snippet per event</strong>, easy for a dev or AI assistant to wire up in minutes." +
           "<ul class=\"tour-event-list\">" +
             "<li><code>event_signup</code> — webinar registrations</li>" +
             "<li><code>pricing_page_visit</code> — high-intent navigation</li>" +
@@ -51,29 +51,18 @@
           "</ul>",
         position: "center",
         stepLabel: "Custom Events",
-        nextPage: "pricing.html?tour=1&step=0",
+        nextPage: "checkout.html?tour=1&step=0",
       },
     ],
 
-    "pricing.html": [
+    "checkout.html": [
       {
-        target: ".pricing-card.featured",
-        title: "4. Track revenue events",
+        target: "#order-summary",
+        title: "4. The conversion: revenue + form fill",
         body:
-          "On pages where money happens, fire an event with the revenue value attached. That's how attribution flows back to the original link." +
-          '<div class="tour-code-block"><code>trackConversion({\n  eventName: \'plan_selected\',\n  revenue: 79.00,\n  currency: \'USD\'\n});</code></div>',
+          "On the purchase page, fire one event when checkout submits — with the revenue attached. This is the conversion." +
+          '<div class="tour-code-block"><code>trackConversion({\n  eventName: \'purchase\',\n  revenue: 79.00,\n  currency: \'USD\'\n});</code></div>',
         position: "left",
-        stepLabel: "Custom Events",
-        nextPage: "signup.html?tour=1&step=0",
-      },
-    ],
-
-    "signup.html": [
-      {
-        target: "#signup-form",
-        title: "5. Form fill = your conversion",
-        body: "Fire one call when the form submits — that's your conversion, tied to the link that drove the click.",
-        position: "right",
         stepLabel: "Custom Events",
         nextPage: "thank-you.html?tour=1&step=0&plan=professional",
       },
@@ -82,8 +71,8 @@
     "thank-you.html": [
       {
         target: ".success-icon",
-        title: "6. Revenue, attributed back to the link",
-        body: "$79 lands in your Rebrandly dashboard — tied to the exact link that drove the click. That's the full loop.",
+        title: "5. Revenue, attributed back to the link",
+        body: "$79 lands in your Rebrandly dashboard — tied to the exact link that drove the original click. That's the full loop.",
         position: "bottom",
         stepLabel: "Custom Events",
       },
@@ -141,7 +130,12 @@
     launchBtn.className = "tour-launch";
     launchBtn.innerHTML = '<span class="tour-launch-icon">?</span> Start Demo Tour';
     launchBtn.addEventListener("click", function () {
-      startTour(0);
+      // Always restart from the very beginning: index.html step 0.
+      if (getPageKey() === "index.html") {
+        startTour(0);
+      } else {
+        window.location.href = "index.html?tour=1&step=0";
+      }
     });
     document.body.appendChild(launchBtn);
   }
@@ -325,7 +319,7 @@
     tooltip.style.bottom = "";
     tooltip.classList.remove("tour-tooltip-center");
 
-    var allPages = ["index.html", "pricing.html", "signup.html", "thank-you.html"];
+    var allPages = ["index.html", "checkout.html", "thank-you.html"];
     var pageKey = getPageKey();
     var totalSteps = 0;
     var currentGlobal = 0;
@@ -377,7 +371,7 @@
   function updateBar(index) {
     var stepLabels = ["Install Snippet", "Custom Events"];
     var pageKey = getPageKey();
-    var allPages = ["index.html", "pricing.html", "signup.html", "thank-you.html"];
+    var allPages = ["index.html", "checkout.html", "thank-you.html"];
     var pageIndex = allPages.indexOf(pageKey);
 
     // Phase 0 = Install (index.html). Phase 1 = Custom Events (pricing, signup, thank-you).
@@ -407,7 +401,7 @@
     bar.innerHTML = html;
   }
 
-  var PAGE_ORDER = ["index.html", "pricing.html", "signup.html", "thank-you.html"];
+  var PAGE_ORDER = ["index.html", "checkout.html", "thank-you.html"];
 
   window._tour = {
     start: function (step) { startTour(step); },
