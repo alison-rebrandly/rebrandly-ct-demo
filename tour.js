@@ -33,19 +33,21 @@
       },
       {
         targets: [
-          { selector: 'a[href="pricing.html"].btn-primary.btn-large', label: "pricing_page_visit" },
-          { selector: 'a[href="features.html"].btn-secondary.btn-large', label: "button_click" },
-          { selector: 'a[href="industry-healthcare.html"]', label: "industry_page_visit" },
+          { selector: "#webinar-bar-cta", label: "event_signup" },
+          { selector: '.nav-links a[href="pricing.html"]', label: "pricing_page_visit" },
+          { selector: "#nav-solutions", label: "industry_page_visit" },
+          { selector: ".nav-login", label: "button_click" },
+          { selector: "#download-strip-cta", label: "download" },
         ],
         title: "3. Track any custom event",
         body:
           "Beyond page views, fire a custom event for anything that matters — pick what counts as a conversion." +
           "<ul class=\"tour-event-list\">" +
+            "<li><code>event_signup</code> — webinar registrations</li>" +
             "<li><code>pricing_page_visit</code> — high-intent navigation</li>" +
-            "<li><code>button_click</code> — CTAs, plan buttons</li>" +
             "<li><code>industry_page_visit</code> — segment signals</li>" +
-            "<li><code>download</code> — gated assets, PDFs</li>" +
-            "<li><code>webinar_signup</code> — form submits</li>" +
+            "<li><code>button_click</code> — login, CTAs</li>" +
+            "<li><code>download</code> — case studies, PDFs</li>" +
           "</ul>",
         position: "center",
         stepLabel: "Custom Events",
