@@ -72,7 +72,16 @@
       {
         target: ".success-icon",
         title: "5. Revenue, attributed back to the link",
-        body: "$79 lands in your Rebrandly dashboard — tied to the exact link that drove the original click. That's the full loop.",
+        body:
+          "Here's what your Rebrandly dashboard shows for this conversion:" +
+          '<div class="tour-journey">' +
+            '<div class="tour-journey-row"><span class="tour-journey-label">🔗 Source link</span><code>rebrand.ly/demo-linkedin</code></div>' +
+            '<div class="tour-journey-row"><span class="tour-journey-label">📍 Channel</span><code>linkedin</code></div>' +
+            '<div class="tour-journey-row"><span class="tour-journey-label">🛤️ Path</span><code>/ → /pricing → /checkout</code></div>' +
+            '<div class="tour-journey-row"><span class="tour-journey-label">⏱️ Time to convert</span><code>3m 24s</code></div>' +
+            '<div class="tour-journey-row tour-journey-revenue"><span class="tour-journey-label">💰 Revenue</span><code>$79.00</code></div>' +
+          '</div>' +
+          "Every signal — channel, path, time, revenue — tied back to the exact link that drove the click.",
         position: "bottom",
         stepLabel: "Custom Events",
       },
