@@ -26,10 +26,29 @@
       },
       {
         target: ".hero",
-        title: "2. Page views — tracked automatically ✓",
-        body: "Snippet's in. When a visitor lands here from a Rebrandly link, the SDK records the page view. No extra code.",
+        title: "2. Page views tracked automatically",
+        body: "When a visitor lands here from a Rebrandly link, the page view gets recorded. No extra code.",
         position: "bottom",
         stepLabel: "Install Snippet",
+      },
+      {
+        targets: [
+          { selector: 'a[href="pricing.html"].btn-primary.btn-large', label: "pricing_page_visit" },
+          { selector: 'a[href="features.html"].btn-secondary.btn-large', label: "button_click" },
+          { selector: 'a[href="industry-healthcare.html"]', label: "industry_page_visit" },
+        ],
+        title: "3. Track any custom event",
+        body:
+          "Beyond page views, fire a custom event for anything that matters — pick what counts as a conversion." +
+          "<ul class=\"tour-event-list\">" +
+            "<li><code>pricing_page_visit</code> — high-intent navigation</li>" +
+            "<li><code>button_click</code> — CTAs, plan buttons</li>" +
+            "<li><code>industry_page_visit</code> — segment signals</li>" +
+            "<li><code>download</code> — gated assets, PDFs</li>" +
+            "<li><code>webinar_signup</code> — form submits</li>" +
+          "</ul>",
+        position: "center",
+        stepLabel: "Custom Events",
         nextPage: "pricing.html?tour=1&step=0",
       },
     ],
@@ -37,16 +56,10 @@
     "pricing.html": [
       {
         target: ".pricing-card.featured",
-        title: "3. Track custom events anywhere",
+        title: "4. Track revenue events",
         body:
-          "Page views are automatic. For everything else, fire a custom event from any element on the site:" +
-          "<ul class=\"tour-event-list\">" +
-            "<li><code>signup</code> — form submits</li>" +
-            "<li><code>plan_clicked</code> — button clicks</li>" +
-            "<li><code>video_played</code> — engagement</li>" +
-            "<li><code>purchase</code> — revenue ($)</li>" +
-          "</ul>" +
-          "You decide what counts as a conversion.",
+          "On pages where money happens, fire an event with the revenue value attached. That's how attribution flows back to the original link." +
+          '<div class="tour-code-block"><code>trackConversion({\n  eventName: \'plan_selected\',\n  revenue: 79.00,\n  currency: \'USD\'\n});</code></div>',
         position: "left",
         stepLabel: "Custom Events",
         nextPage: "signup.html?tour=1&step=0",
@@ -56,10 +69,8 @@
     "signup.html": [
       {
         target: "#signup-form",
-        title: "4. Form fill = your conversion",
-        body:
-          "Fire one call when the form submits — that's your conversion." +
-          '<div class="tour-code-block"><code>trackConversion({\n  eventName: \'signup\',\n  revenue: 79.00\n});</code></div>',
+        title: "5. Form fill = your conversion",
+        body: "Fire one call when the form submits — that's your conversion, tied to the link that drove the click.",
         position: "right",
         stepLabel: "Custom Events",
         nextPage: "thank-you.html?tour=1&step=0&plan=professional",
@@ -69,7 +80,7 @@
     "thank-you.html": [
       {
         target: ".success-icon",
-        title: "5. Revenue, attributed back to the link",
+        title: "6. Revenue, attributed back to the link",
         body: "$79 lands in your Rebrandly dashboard — tied to the exact link that drove the click. That's the full loop.",
         position: "bottom",
         stepLabel: "Custom Events",
@@ -151,8 +162,17 @@
     spotlight.style.display = "none";
     launchBtn.classList.remove("hidden");
 
-    var highlighted = document.querySelector(".tour-highlight");
-    if (highlighted) highlighted.classList.remove("tour-highlight");
+    var highlighted = document.querySelectorAll(".tour-highlight");
+    highlighted.forEach(function (el) { el.classList.remove("tour-highlight"); });
+    var labels = document.querySelectorAll(".tour-multi-label");
+    labels.forEach(function (el) { el.remove(); });
+  }
+
+  function clearAllHighlights() {
+    var prevHighlights = document.querySelectorAll(".tour-highlight");
+    prevHighlights.forEach(function (el) { el.classList.remove("tour-highlight"); });
+    var prevLabels = document.querySelectorAll(".tour-multi-label");
+    prevLabels.forEach(function (el) { el.remove(); });
   }
 
   function showStep(index) {
@@ -160,8 +180,30 @@
     currentStepIndex = index;
     var step = pageSteps[index];
 
-    var prev = document.querySelector(".tour-highlight");
-    if (prev) prev.classList.remove("tour-highlight");
+    clearAllHighlights();
+
+    // Multi-target step: highlight several elements at once with floating labels.
+    if (step.targets && step.targets.length) {
+      spotlight.style.display = "none";
+      step.targets.forEach(function (t) {
+        var el = document.querySelector(t.selector);
+        if (!el) return;
+        el.classList.add("tour-highlight");
+        var label = document.createElement("span");
+        label.className = "tour-multi-label";
+        label.textContent = t.label;
+        document.body.appendChild(label);
+        var rect = el.getBoundingClientRect();
+        label.style.top = (rect.top + window.scrollY - 28) + "px";
+        label.style.left = (rect.left + window.scrollX) + "px";
+      });
+      // Scroll to the first target so the user can see at least one highlight.
+      var firstEl = document.querySelector(step.targets[0].selector);
+      if (firstEl) firstEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      positionCenter(step);
+      updateBar(index);
+      return;
+    }
 
     var targetEl = null;
     if (step.target === "head-script") {

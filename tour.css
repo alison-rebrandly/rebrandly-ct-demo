@@ -378,6 +378,34 @@
   z-index: 9999;
 }
 
+.tour-multi-label {
+  position: absolute;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  z-index: 10001;
+  pointer-events: none;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+  white-space: nowrap;
+}
+
+.tour-multi-label::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 12px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--primary);
+}
+
 /* Responsive */
 @media (max-width: 480px) {
   .tour-tooltip {
