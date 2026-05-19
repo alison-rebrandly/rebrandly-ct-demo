@@ -1,53 +1,35 @@
 /**
- * Guided Product Tour for Rebrandly Conversion Tracking Demo
+ * Guided Product Tour for Rebrandly Conversion Tracking — Ledgerly Demo
  *
- * A lightweight tooltip tour system that overlays on the actual demo pages.
- * Tour steps are defined per-page and highlight real elements with tooltips
- * explaining the conversion tracking setup flow.
+ * Simplified 5-step flow:
+ *   1. Install snippet (homepage)
+ *   2. Page view auto-tracked (homepage)
+ *   3. Custom events catalog (pricing)
+ *   4. Form fill = custom event (signup)
+ *   5. Revenue captured (thank-you)
  */
 
 (function () {
   "use strict";
 
-  // ==============================
-  // Tour Step Definitions
-  // ==============================
-  // Each page has its own steps. Steps reference actual DOM elements on that page.
-
   var STEPS = {
     "index.html": [
       {
         target: "head-script",
-        title: "Install the Tracking Snippet",
+        title: "1. Install the snippet",
         body:
-          'The Rebrandly SDK is installed in the <code>&lt;head&gt;</code> of every page on this site. It loads automatically and begins tracking page views — no extra code needed.' +
-          '<div class="tour-code-block"><code>&lt;script\n  src="https://cdn.test.rebrandly.com/sdk/v1/rbly.min.js"\n  data-api-key="YOUR_API_KEY"&gt;\n&lt;/script&gt;</code></div>' +
-          "This single snippet is all you paste into your CMS header injection (WordPress, Squarespace, Webflow, etc.).",
+          "Paste one line into the <code>&lt;head&gt;</code> of your site. That's it." +
+          '<div class="tour-code-block"><code>&lt;script\n  src="https://cdn.test.rebrandly.com/sdk/v1/rbly.min.js"\n  data-api-key="YOUR_API_KEY"&gt;\n&lt;/script&gt;</code></div>',
         position: "bottom",
         highlight: ".nav",
         stepLabel: "Install Snippet",
       },
       {
         target: ".hero",
-        title: "Page View Tracked Automatically",
-        body: "When a visitor lands on this page via a tracked Rebrandly link, the SDK automatically records a <code>page_view</code> event. No code needed — it fires on every page where the snippet is installed.",
+        title: "2. Page views — tracked automatically ✓",
+        body: "Snippet's in. When a visitor lands here from a Rebrandly link, the SDK records the page view. No extra code.",
         position: "bottom",
         stepLabel: "Install Snippet",
-      },
-      {
-        target: 'a[href="signup.html"].btn-primary.btn-large',
-        title: "CTA Click Event",
-        body: "When a visitor clicks this CTA, we fire a <code>cta_click</code> custom event that captures which button was clicked and from which page. This helps measure intent before the actual conversion." +
-          '<div class="tour-code-block"><code>trackConversion({\n  eventName: \'cta_click\',\n  properties: {\n    ctaText: \'Start Free Trial\',\n    sourcePage: \'index.html\'\n  }\n});</code></div>',
-        position: "top",
-        stepLabel: "Custom Events",
-      },
-      {
-        target: null,
-        title: "Next: See Conversion Events",
-        body: "Now let's walk through the pages where actual conversions happen — the signup form and purchase confirmation.<br><br>Click <strong>Next</strong> to continue the tour on the Pricing page.",
-        position: "center",
-        stepLabel: "Custom Events",
         nextPage: "pricing.html?tour=1&step=0",
       },
     ],
@@ -55,17 +37,17 @@
     "pricing.html": [
       {
         target: ".pricing-card.featured",
-        title: "High-Intent Page View",
-        body: "When a visitor reaches the pricing page, we fire a <code>pricing_viewed</code> event — a high-intent signal that the visitor is evaluating plans. This is tracked as a custom conversion event on top of the automatic page view." +
-          '<div class="tour-code-block"><code>trackConversion({\n  eventName: \'pricing_viewed\',\n  properties: {\n    referrer: document.referrer\n  }\n});</code></div>',
+        title: "3. Track custom events anywhere",
+        body:
+          "Page views are automatic. For everything else, fire a custom event from any element on the site:" +
+          "<ul class=\"tour-event-list\">" +
+            "<li><code>signup</code> — form submits</li>" +
+            "<li><code>plan_clicked</code> — button clicks</li>" +
+            "<li><code>video_played</code> — engagement</li>" +
+            "<li><code>purchase</code> — revenue ($)</li>" +
+          "</ul>" +
+          "You decide what counts as a conversion.",
         position: "left",
-        stepLabel: "Custom Events",
-      },
-      {
-        target: null,
-        title: "Next: The Signup Form",
-        body: "The visitor picks a plan and clicks \"Start Free Trial\". Let's see what happens on the signup page.<br><br>Click <strong>Next</strong> to continue.",
-        position: "center",
         stepLabel: "Custom Events",
         nextPage: "signup.html?tour=1&step=0",
       },
@@ -74,24 +56,11 @@
     "signup.html": [
       {
         target: "#signup-form",
-        title: "Signup Conversion Event",
-        body: "When the visitor submits this form, we fire a <code>signup</code> conversion event. It captures the selected plan, email, and company — linking this conversion back to the original Rebrandly link click." +
-          '<div class="tour-code-block"><code>trackConversion({\n  eventName: \'signup\',\n  properties: {\n    plan: \'professional\',\n    email: \'jane@company.com\',\n    company: \'Acme Corp\'\n  }\n});</code></div>',
+        title: "4. Form fill = your conversion",
+        body:
+          "Fire one call when the form submits — that's your conversion." +
+          '<div class="tour-code-block"><code>trackConversion({\n  eventName: \'signup\',\n  revenue: 79.00\n});</code></div>',
         position: "right",
-        stepLabel: "Custom Events",
-      },
-      {
-        target: "#plan",
-        title: "Plan Selection Event",
-        body: "We also track when the visitor changes the plan dropdown — a <code>plan_selected</code> event with the plan value and price. This lets you see which plans visitors consider before converting.",
-        position: "right",
-        stepLabel: "Custom Events",
-      },
-      {
-        target: null,
-        title: "Next: Purchase Confirmation",
-        body: "After submitting the form, the visitor lands on the thank-you page. That's where the revenue event fires.<br><br>Click <strong>Next</strong> to see the final step.",
-        position: "center",
         stepLabel: "Custom Events",
         nextPage: "thank-you.html?tour=1&step=0&plan=professional",
       },
@@ -100,25 +69,10 @@
     "thank-you.html": [
       {
         target: ".success-icon",
-        title: "Purchase Event with Revenue",
-        body: "This is the money moment. On page load, we fire a <code>purchase</code> event with the revenue value attached. This is what powers the revenue attribution in the Rebrandly analytics dashboard." +
-          '<div class="tour-code-block"><code>trackConversion({\n  eventName: \'purchase\',\n  revenue: 79.00,\n  currency: \'USD\',\n  properties: {\n    plan: \'professional\',\n    billingCycle: \'monthly\'\n  }\n});</code></div>',
+        title: "5. Revenue, attributed back to the link",
+        body: "$79 lands in your Rebrandly dashboard — tied to the exact link that drove the click. That's the full loop.",
         position: "bottom",
         stepLabel: "Custom Events",
-      },
-      {
-        target: null,
-        title: "Full Funnel Complete!",
-        body: "<strong>That's the complete conversion tracking flow:</strong><br><br>" +
-          "1. <strong>Snippet installed</strong> in the site header<br>" +
-          "2. <strong>Page views</strong> tracked automatically on every page<br>" +
-          "3. <strong>CTA clicks</strong> tracked on the homepage<br>" +
-          "4. <strong>Pricing viewed</strong> as a high-intent signal<br>" +
-          "5. <strong>Signup</strong> captured on form submit<br>" +
-          "6. <strong>Purchase</strong> with $79 revenue on confirmation<br><br>" +
-          "All attributed back to the original Rebrandly link click via <code>rbly_click_id</code>.",
-        position: "center",
-        stepLabel: "Summary",
       },
     ],
   };
@@ -145,7 +99,6 @@
 
     createElements();
 
-    // Auto-start if tour param is in URL
     var params = new URLSearchParams(window.location.search);
     if (params.get("tour") === "1") {
       var startStep = parseInt(params.get("step")) || 0;
@@ -154,28 +107,23 @@
   }
 
   function createElements() {
-    // Backdrop (hidden until tour starts)
     backdrop = document.createElement("div");
     backdrop.className = "tour-backdrop";
     backdrop.addEventListener("click", endTour);
     document.body.appendChild(backdrop);
 
-    // Spotlight
     spotlight = document.createElement("div");
     spotlight.className = "tour-spotlight";
     document.body.appendChild(spotlight);
 
-    // Tooltip
     tooltip = document.createElement("div");
     tooltip.className = "tour-tooltip";
     document.body.appendChild(tooltip);
 
-    // Bottom bar
     bar = document.createElement("div");
     bar.className = "tour-bar";
     document.body.appendChild(bar);
 
-    // Launch button
     launchBtn = document.createElement("button");
     launchBtn.className = "tour-launch";
     launchBtn.innerHTML = '<span class="tour-launch-icon">?</span> Start Demo Tour';
@@ -203,7 +151,6 @@
     spotlight.style.display = "none";
     launchBtn.classList.remove("hidden");
 
-    // Remove highlight from any element
     var highlighted = document.querySelector(".tour-highlight");
     if (highlighted) highlighted.classList.remove("tour-highlight");
   }
@@ -213,11 +160,9 @@
     currentStepIndex = index;
     var step = pageSteps[index];
 
-    // Remove previous highlight
     var prev = document.querySelector(".tour-highlight");
     if (prev) prev.classList.remove("tour-highlight");
 
-    // Find target element
     var targetEl = null;
     if (step.target === "head-script") {
       targetEl = document.querySelector(".nav");
@@ -225,7 +170,6 @@
       targetEl = document.querySelector(step.target);
     }
 
-    // Position spotlight and tooltip
     if (targetEl && step.position !== "center") {
       targetEl.classList.add("tour-highlight");
       targetEl.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -235,7 +179,6 @@
         positionSpotlight(targetEl);
       }, 350);
     } else {
-      // Center tooltip (no target)
       spotlight.style.display = "none";
       positionCenter(step);
     }
@@ -261,7 +204,6 @@
     tooltip.style.position = "absolute";
     var pos = step.position || "bottom";
 
-    // Reset positioning
     tooltip.style.top = "";
     tooltip.style.bottom = "";
     tooltip.style.left = "";
@@ -287,7 +229,6 @@
       tooltip.style.left = (rect.right + window.scrollX + gap) + "px";
     }
 
-    // Clamp to viewport
     var tooltipRect = tooltip.getBoundingClientRect();
     if (tooltipRect.right > window.innerWidth - 16) {
       tooltip.style.left = (window.innerWidth - tooltip.offsetWidth - 16) + "px";
@@ -303,14 +244,12 @@
   }
 
   function renderTooltipContent(step) {
-    // Reset inline position styles
     tooltip.style.top = "";
     tooltip.style.left = "";
     tooltip.style.right = "";
     tooltip.style.bottom = "";
     tooltip.classList.remove("tour-tooltip-center");
 
-    // Calculate overall progress across all pages
     var allPages = ["index.html", "pricing.html", "signup.html", "thank-you.html"];
     var pageKey = getPageKey();
     var totalSteps = 0;
@@ -323,7 +262,6 @@
       totalSteps += pSteps.length;
     }
 
-    // Build progress dots
     var dots = "";
     for (var d = 0; d < totalSteps; d++) {
       var cls = "tour-progress-dot";
@@ -332,12 +270,10 @@
       dots += '<span class="' + cls + '"></span>';
     }
 
-    // Determine if this is the last step across all pages
     var isLastPage = pageKey === "thank-you.html";
     var isLastStep = currentStepIndex === pageSteps.length - 1;
     var isVeryLast = isLastPage && isLastStep;
 
-    // Next button logic
     var nextBtnHtml;
     if (isVeryLast) {
       nextBtnHtml = '<button class="tour-btn tour-btn-primary" onclick="window._tour.end()">Finish Tour</button>';
@@ -365,18 +301,13 @@
   }
 
   function updateBar(index) {
-    var stepLabels = ["Install Snippet", "Custom Events", "Summary"];
+    var stepLabels = ["Install Snippet", "Custom Events"];
     var pageKey = getPageKey();
     var allPages = ["index.html", "pricing.html", "signup.html", "thank-you.html"];
     var pageIndex = allPages.indexOf(pageKey);
 
-    // Map to simplified bar steps: 0=snippet (index step 0-1), 1=events (rest), 2=summary
-    var barStep = 0;
-    if (pageKey === "thank-you.html" && index === pageSteps.length - 1) {
-      barStep = 2;
-    } else if (pageIndex > 0 || index >= 2) {
-      barStep = 1;
-    }
+    // Phase 0 = Install (index.html). Phase 1 = Custom Events (pricing, signup, thank-you).
+    var barStep = pageIndex === 0 ? 0 : 1;
 
     var html = "";
     for (var i = 0; i < stepLabels.length; i++) {
@@ -384,7 +315,7 @@
       if (i === barStep) cls += " active";
       else if (i < barStep) cls += " done";
 
-      var numContent = i < barStep ? "\u2713" : (i + 1);
+      var numContent = i < barStep ? "✓" : (i + 1);
 
       html +=
         '<div class="' + cls + '">' +
@@ -401,10 +332,6 @@
 
     bar.innerHTML = html;
   }
-
-  // ==============================
-  // Public API (for button onclick handlers)
-  // ==============================
 
   window._tour = {
     start: function (step) { startTour(step); },
@@ -424,10 +351,6 @@
     },
   };
 
-  // ==============================
-  // Keyboard navigation
-  // ==============================
-
   document.addEventListener("keydown", function (e) {
     if (!isActive) return;
     if (e.key === "Escape") endTour();
@@ -441,10 +364,6 @@
     }
     if (e.key === "ArrowLeft") window._tour.prev();
   });
-
-  // ==============================
-  // Init on DOM ready
-  // ==============================
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
