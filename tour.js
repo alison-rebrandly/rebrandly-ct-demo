@@ -290,7 +290,6 @@
     tooltip.innerHTML =
       '<button class="tour-btn-close" onclick="window._tour.end()">&times;</button>' +
       '<div class="tour-tooltip-header">' +
-        '<span class="tour-step-badge">' + step.stepLabel + '</span>' +
         '<span class="tour-tooltip-title">' + step.title + "</span>" +
       "</div>" +
       '<div class="tour-tooltip-body">' + step.body + "</div>" +

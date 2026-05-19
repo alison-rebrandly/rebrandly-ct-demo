@@ -88,7 +88,7 @@
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05);
-  width: 380px;
+  width: 460px;
   max-width: calc(100vw - 32px);
   opacity: 0;
   transform: translateY(8px);
@@ -137,42 +137,31 @@
 
 /* Tooltip content */
 .tour-tooltip-header {
-  padding: 20px 24px 0;
+  padding: 22px 28px 0;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.tour-step-badge {
-  background: var(--primary);
-  color: #fff;
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-}
-
 .tour-tooltip-title {
-  font-size: 1rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: var(--text);
+  line-height: 1.3;
 }
 
 .tour-tooltip-body {
-  padding: 12px 24px 0;
-  font-size: 0.88rem;
+  padding: 14px 28px 0;
+  font-size: 1.05rem;
   color: var(--text-light);
-  line-height: 1.65;
+  line-height: 1.6;
 }
 
 .tour-tooltip-body code {
   background: var(--primary-light);
   padding: 2px 6px;
   border-radius: 4px;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   color: var(--primary-dark);
 }
 
@@ -187,7 +176,7 @@
 .tour-tooltip-body .tour-code-block code {
   background: none;
   color: #e2e8f0;
-  font-size: 0.78rem;
+  font-size: 0.92rem;
   padding: 0;
   display: block;
   white-space: pre;
@@ -197,12 +186,12 @@
 .tour-tooltip-body .tour-event-list {
   list-style: none;
   padding: 0;
-  margin: 10px 0;
+  margin: 12px 0;
 }
 
 .tour-tooltip-body .tour-event-list li {
-  padding: 6px 0;
-  font-size: 0.85rem;
+  padding: 8px 0;
+  font-size: 1rem;
   border-bottom: 1px solid #f1f5f9;
 }
 
@@ -214,7 +203,7 @@
   background: #f1f5f9;
   padding: 2px 6px;
   border-radius: 4px;
-  font-size: 0.78rem;
+  font-size: 0.92rem;
   color: var(--primary-dark);
 }
 
